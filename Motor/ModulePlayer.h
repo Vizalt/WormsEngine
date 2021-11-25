@@ -3,6 +3,10 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "p2List.h"
+#include "Motor.h"
+
+class Ball;
 
 class ModulePlayer : public Module
 {
@@ -16,6 +20,7 @@ public:
 
 	
 public:
+	p2List<Ball*>* balls;
 	p2Point<int> position;
 	SDL_Texture* PlayerTex;
 	

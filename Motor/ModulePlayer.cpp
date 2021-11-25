@@ -31,6 +31,8 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	App->renderer->DrawCircle(position.x+10, position.y+5, App->motor->ball.rad, 255, 0, 66);
+
 	SDL_Rect player = { position.x, position.y, 50, 50 };
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
