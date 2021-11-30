@@ -27,8 +27,8 @@ bool Motor::Start()
 	ball.rad = 10;
 	// Set initial position and velocity of the ball
 	ball.x = ball.y = 30.0;
-	ball.vx = 5;
-	ball.vy = 1;
+	ball.vx = 30;
+	ball.vy = 10;
 
 	BALL = App->textures->Load("pinball/sol.png");
 	return true;
@@ -65,17 +65,20 @@ update_status Motor::Update()
 	ball.ay = ball.fy / ball.mass;
 	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
 	// Step #3: Integrate --> from accel to new velocity & new position. 
-	//integrator_velocity_verlet(ball, dt);
-	integrator_fw_euler(ball,dt);
+	integrator_velocity_verlet(ball, dt);
+	//integrator_fw_euler(ball,dt);
 
 	// Step #4: solve collisions
-	if (ball.y >= ground.y)
+	if (ball.y+ball.rad+5> ground.y)
 	{
 		// For now, just stop the ball when it reaches the ground.
-		ball.vx = ball.vy = 0.0;
-		ball.ax = ball.ay = 0.0;
-		ball.fx = ball.fy = 0.0;
-		ball.physics_enabled = false;
+		//ball.vx = ball.vy = 0.0;
+		/*ball.ax = ball.ay = 0.0;
+		ball.fx = ball.fy = 0.0;*/
+		ball.vy = -ball.vy*0.9f;
+		ball.vx = ball.vx * 0.9f;
+		ball.ay = -ball.ay;
+	//	ball.physics_enabled = false;
 	}
 	}
 	return UPDATE_CONTINUE;

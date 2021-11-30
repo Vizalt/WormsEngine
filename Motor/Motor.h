@@ -3,6 +3,14 @@
 #include "Globals.h"
 #include "Animation.h"
 #include "p2Point.h"
+
+//enum
+//{
+//	VERLET
+//	EULER
+//
+//
+//};
 class Motor : public Module
 {
 public:
@@ -16,8 +24,8 @@ public:
 		double y;
 
 		// Velocity
-		double vx;
-		double vy;
+		float vx;
+		float vy;
 
 		// Acceleration
 		double ax;
@@ -64,7 +72,7 @@ public:
 
 private:
 
-	float dt = 1.0f/30;
+	float dt = 1.0f/16;
 
 	SDL_Texture* BALL;
 	bool debug;
