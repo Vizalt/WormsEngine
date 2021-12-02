@@ -23,5 +23,9 @@ public:
 	p2List<Ball*>* balls;
 	p2Point<int> position;
 	SDL_Texture* PlayerTex;
+	SDL_Texture* CannonTex;
+	SDL_Texture* SupportCannonTex;
+
+	int PlayerRotation = 0;
 	
 };

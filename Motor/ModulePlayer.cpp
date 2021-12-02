@@ -16,6 +16,8 @@ bool ModulePlayer::Start()
 	position.x = 100;
 	position.y = 430;
 	PlayerTex = App->textures->Load("pinball/player.png");
+	CannonTex = App->textures->Load("pinball/CannonTex.png");
+	SupportCannonTex= App->textures->Load("pinball/SupportCannonTex.png");
 	
 	return true;
 }
@@ -48,9 +50,21 @@ update_status ModulePlayer::Update()
 	//	App->player->position.y -= 8;
 	//}
 
-	App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		PlayerRotation += 1;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		PlayerRotation -= 1;
+	}
+	if (PlayerRotation > 90) {
+		PlayerRotation = 90;
+	}
+	if (PlayerRotation < 0) {
+		PlayerRotation = 0;
+	}
+
+	/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
+	App->renderer->Blit(CannonTex, position.x, position.y, NULL, 1.0f,PlayerRotation);
+	App->renderer->Blit(SupportCannonTex, position.x - 6, position.y + 50, NULL, 1.0f);
 	return UPDATE_CONTINUE;
 }
-
-
-
