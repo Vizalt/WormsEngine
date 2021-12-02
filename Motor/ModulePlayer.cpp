@@ -33,7 +33,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	App->renderer->DrawCircle(position.x+10, position.y+5, App->motor->ball.rad, 255, 0, 66);
+	/*App->renderer->DrawCircle(position.x+10, position.y+5, App->motor->ball.rad, 255, 0, 66);*/
 
 	SDL_Rect player = { position.x, position.y, 50, 50 };
 
@@ -51,10 +51,10 @@ update_status ModulePlayer::Update()
 	//}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
-		PlayerRotation += 1;
+		PlayerRotation -= 1;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
-		PlayerRotation -= 1;
+		PlayerRotation += 1;
 	}
 	if (PlayerRotation > 90) {
 		PlayerRotation = 90;
@@ -64,7 +64,8 @@ update_status ModulePlayer::Update()
 	}
 
 	/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
-	App->renderer->Blit(CannonTex, position.x, position.y, NULL, 1.0f,PlayerRotation);
-	App->renderer->Blit(SupportCannonTex, position.x - 6, position.y + 50, NULL, 1.0f);
+	App->renderer->Blit(CannonTex, position.x-15, position.y+8, NULL, 1.0f,-PlayerRotation);
+	App->renderer->Blit(SupportCannonTex, position.x - 6, position.y + 46, NULL, 1.0f);
+
 	return UPDATE_CONTINUE;
 }

@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+//#include "SString.h"
 
 
 
@@ -51,7 +52,8 @@ update_status ModuleSceneIntro::Update()
 
 update_status ModuleSceneIntro::PostUpdate()
 {
-
+	//SString title(TITLE "Angle: %d ", App->player->PlayerRotation);
+	//App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
 }
