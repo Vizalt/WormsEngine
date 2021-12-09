@@ -63,6 +63,9 @@ update_status ModulePlayer::Update()
 		PlayerRotation = 0;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) {
+		PlayerRotation -= 1;
+	}
 	/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
 	App->renderer->Blit(CannonTex, position.x-15, position.y+8, NULL, 1.0f,-PlayerRotation);
 	App->renderer->Blit(SupportCannonTex, position.x - 6, position.y + 46, NULL, 1.0f);
