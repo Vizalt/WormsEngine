@@ -54,12 +54,17 @@ update_status Motor::Update()
 			App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
 			ComputeForces(b->data, dt);
 			// Compute Aerodynamic Lift & Drag forces
-			//double speed = ball.speed(ball.vx - atmosphere.windx, ball.vy - atmosphere.windy);
-			//double fdrag = 0.5 * atmosphere.density * speed * speed * ball.surface * ball.cd;
-			//double fdx = -fdrag; // Let's assume Drag is aligned with x-axis (in your game, generalize this)
-
+			float vxr = b->data->vx - atmosphere.windx;
+			float vyr = b->data->vy - atmosphere.windy;
+			double speed = CalculateModule(vxr, vyr);
+			double fdrag = 0.5 * atmosphere.density * speed * speed * b->data->surface * b->data->cd;
+			Unitari(vxr, vyr, speed);
+			double fdx = -vxr*fdrag; // Let's assume Drag is aligned with x-axis (in your game, generalize this)
+			double fdy = -vyr * fdrag;
 			// Add gravity force to the total accumulated force of the ball
-			//ball.fx += fdx;
+			b->data->fx += fdx;
+			b->data->fy += fdy;
+			//b->data->fy += fdy;
 
 			newton_law(b->data, dt);
 			integrator_velocity_verlet(b->data, dt);
@@ -132,6 +137,18 @@ update_status Motor::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
+double Motor::CalculateModule(float x, float y) {
+	double vel;
+	vel = sqrt((x * x) + (y * y));
+
+	return vel;
+}
+
+void Motor::Unitari(float x, float y, double m) {
+	x = x / m;
+	y = y / m;
+}
+
 // Integration scheme: Velocity Verlet
 // You should modularise all your algorithms into subroutines. Including the ones to compute forces.
 void Motor::integrator_velocity_verlet(Ball* ball, float dt)
@@ -142,6 +159,7 @@ void Motor::integrator_velocity_verlet(Ball* ball, float dt)
 	ball->vy += ball->ay * dt;
 	LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
 }
+
 
 //void Motor::integrator_bw_euler(Ball* ball, float dt)
 //{

@@ -40,7 +40,7 @@ public:
 	double mass;
 
 	// Aerodynamics stuff
-	double surface = 0.1; // Effective wet surface
+	double surface = 0.02; // Effective wet surface
 	//double cl; // Lift coefficient
 	double cd = 1.0; // Drag coefficient
 
@@ -71,10 +71,10 @@ class Atmosphere
 {
 public:
 
-	float windx;
-	float windy;
+	float windx = 1.0;
+	float windy = 1.0;
 
-	float density;
+	float density = 1.225;
 };
 
 struct Ground {
@@ -108,6 +108,10 @@ public:
 	void integrator_velocity_verlet(Ball* ball, float dt);
 	void integrator_bw_euler(Ball* ball, float dt);
 	void integrator_fw_euler(Ball* ball, float dt);
+
+	double CalculateModule(float x, float y);
+
+	void Unitari(float x, float y, double m);
 
 	void newton_law(Ball* ball, float dt);
 
