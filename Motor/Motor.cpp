@@ -99,7 +99,7 @@ update_status Motor::PostUpdate()
 
 // Integration scheme: Velocity Verlet
 // You should modularise all your algorithms into subroutines. Including the ones to compute forces.
-void Motor::integrator_velocity_verlet(Ball& ball, double dt)
+void Motor::integrator_velocity_verlet(Ball& ball, float dt)
 {
 	ball.x += ball.vx * dt + 0.5 * ball.ax * dt * dt;
 	ball.y += ball.vy * dt + 0.5 * ball.ay * dt * dt;
@@ -108,7 +108,7 @@ void Motor::integrator_velocity_verlet(Ball& ball, double dt)
 	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
 }
 
-void Motor::integrator_bw_euler(Ball& ball, double dt)
+void Motor::integrator_bw_euler(Ball& ball, float dt)
 {
 	ball.x = ball.x + ball.vx * dt;
 	ball.y = ball.y + ball.vy * dt;
@@ -117,7 +117,7 @@ void Motor::integrator_bw_euler(Ball& ball, double dt)
 	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
 }
 
-void Motor::integrator_fw_euler(Ball& ball, double dt)
+void Motor::integrator_fw_euler(Ball& ball, float dt)
 {
 	
 	ball.vx = ball.vx + ball.ax * dt;
@@ -139,7 +139,7 @@ bool Motor::CleanUp()
 	return true;
 }
 
-void Motor::newton_law(Ball& ball, double dt)
+void Motor::newton_law(Ball& ball, float dt)
 {
 
 	ball.ax = ball.fx / ball.mass;
@@ -149,16 +149,16 @@ void Motor::newton_law(Ball& ball, double dt)
 	
 }
 
-void Motor::ComputeForces(Ball& ball, double dt)
+void Motor::ComputeForces(Ball& ball, float dt)
 {
 
 	// Compute Gravity force
-	double fgx = ball.mass * 0.0;
-	double fgy = ball.mass * 10.0; // Let's assume gravity is constant and downwards
+	 ball.fgx = ball.mass * 0.0;
+	 ball.fgy = ball.mass * g; // Let's assume gravity is constant and downwards
 
 	// Add gravity force to the total accumulated force of the ball
-	ball.fx += fgx;
-	ball.fy += fgy;
+	ball.fx += ball.fgx;
+	ball.fy += ball.fgy;
 
 	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
 }

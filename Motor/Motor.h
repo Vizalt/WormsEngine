@@ -32,6 +32,8 @@ public:
 	double fx;
 	double fy;
 
+	double fgx;
+	double fgy;
 	// Mass
 	double mass;
 
@@ -86,7 +88,7 @@ public:
 private:
 
 	float dt = 1.0f/16;
-
+	float g = 100.0f;
 	SDL_Texture* BALL;
 	bool debug;
 };
