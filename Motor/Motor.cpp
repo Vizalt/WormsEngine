@@ -53,6 +53,14 @@ update_status Motor::Update()
 			b->data->ax = b->data->ay = 0.0;
 			App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
 			ComputeForces(b->data, dt);
+			// Compute Aerodynamic Lift & Drag forces
+			//double speed = ball.speed(ball.vx - atmosphere.windx, ball.vy - atmosphere.windy);
+			//double fdrag = 0.5 * atmosphere.density * speed * speed * ball.surface * ball.cd;
+			//double fdx = -fdrag; // Let's assume Drag is aligned with x-axis (in your game, generalize this)
+
+			// Add gravity force to the total accumulated force of the ball
+			//ball.fx += fdx;
+
 			newton_law(b->data, dt);
 			integrator_velocity_verlet(b->data, dt);
 

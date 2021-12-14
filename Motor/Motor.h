@@ -40,9 +40,9 @@ public:
 	double mass;
 
 	// Aerodynamics stuff
-	//double surface; // Effective wet surface
+	double surface = 0.1; // Effective wet surface
 	//double cl; // Lift coefficient
-	//double cd; // Drag coefficient
+	double cd = 1.0; // Drag coefficient
 
 	// Has physics enabled?
 	bool physics_enabled = true;
@@ -67,6 +67,16 @@ public:
 
 };
 
+class Atmosphere
+{
+public:
+
+	float windx;
+	float windy;
+
+	float density;
+};
+
 struct Ground {
 	int x = 0;
 	int y = 500;
@@ -85,6 +95,7 @@ public:
 
 	//Create a ball
 	//Ball ball;
+	Atmosphere atmosphere;
 	Ground ground;
 
 	p2List<Ball*> Balls;
