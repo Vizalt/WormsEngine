@@ -52,18 +52,10 @@ update_status Motor::Update()
 	ball.ax = ball.ay = 0.0;
 	// Step #1: Compute forces
 
-		// Compute Gravity force
-	double fgx = ball.mass * 0.0;
-	double fgy = ball.mass * 10.0; // Let's assume gravity is constant and downwards
-
-	// Add gravity force to the total accumulated force of the ball
-	ball.fx += fgx;
-	ball.fy += fgy;
+	ComputeForces(ball, dt);
 
 	// Step #2: 2nd Newton's Law: SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-	ball.ax = ball.fx / ball.mass;
-	ball.ay = ball.fy / ball.mass;
-	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
+	newton_law(ball, dt);
 	// Step #3: Integrate --> from accel to new velocity & new position. 
 	integrator_velocity_verlet(ball, dt);
 	//integrator_fw_euler(ball,dt);
@@ -145,4 +137,28 @@ bool Motor::CleanUp()
 	// Delete the whole physics world!
 
 	return true;
+}
+
+void Motor::newton_law(Ball& ball, double dt)
+{
+
+	ball.ax = ball.fx / ball.mass;
+	ball.ay = ball.fy / ball.mass;
+	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
+
+	
+}
+
+void Motor::ComputeForces(Ball& ball, double dt)
+{
+
+	// Compute Gravity force
+	double fgx = ball.mass * 0.0;
+	double fgy = ball.mass * 10.0; // Let's assume gravity is constant and downwards
+
+	// Add gravity force to the total accumulated force of the ball
+	ball.fx += fgx;
+	ball.fy += fgy;
+
+	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
 }
