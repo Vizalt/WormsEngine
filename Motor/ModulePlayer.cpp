@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
-
+#include "Motor.h"
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -64,7 +64,7 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT) {
-		PlayerRotation -= 1;
+		App->motor->NewBall(10, 100, 20, 300, 50, PlayerRotation);
 	}
 	/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
 	App->renderer->Blit(CannonTex, position.x-15, position.y+8, NULL, 1.0f,-PlayerRotation);

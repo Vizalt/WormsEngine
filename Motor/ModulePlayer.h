@@ -20,7 +20,7 @@ public:
 
 	
 public:
-	p2List<Ball*>* balls;
+	
 	p2Point<int> position;
 	SDL_Texture* PlayerTex;
 	SDL_Texture* CannonTex;
