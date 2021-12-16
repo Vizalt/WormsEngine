@@ -86,10 +86,6 @@ class Motor : public Module
 {
 public:
 	
-	
-
-	
-
 	Motor(Application* app, bool start_enabled = true);
 	~Motor();
 

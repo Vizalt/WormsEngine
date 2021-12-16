@@ -17,7 +17,6 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-
 	
 public:
 	
@@ -27,5 +26,13 @@ public:
 	SDL_Texture* SupportCannonTex;
 
 	int PlayerRotation = 0;
+
+	float cx;
+	float cy;
 	
+	float speed = 7;
+	float rad = PIXEL_TO_METERS(10);
+	float mass = 200;
+	float velo = 300;
+
 };
