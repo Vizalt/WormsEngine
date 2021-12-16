@@ -40,7 +40,7 @@ public:
 	double mass;
 
 	// Aerodynamics stuff
-	double surface = 0.02; // Effective wet surface
+	double surface = 0.0; // Effective wet surface
 	//double cl; // Lift coefficient
 	double cd = 1.0; // Drag coefficient
 
