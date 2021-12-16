@@ -122,17 +122,11 @@ update_status Motor::Update()
 // 
 update_status Motor::PostUpdate()
 {
-	
-
-
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
 	if(!debug)
 		return UPDATE_CONTINUE;
-
-
-
 
 	return UPDATE_CONTINUE;
 }
@@ -222,3 +216,12 @@ Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float an
 	Balls.add(a);
 	return a;
 }
+
+//bool Motor::checkCollision(Ball* a, SDL_Rect b) {
+//
+//}
+
+//void Motor::AddForce(Ball* obj, float fx, float fy) {
+//	obj->vx += fx;
+//	obj->vy += fy;
+//}

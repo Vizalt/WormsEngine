@@ -32,7 +32,7 @@ public:
 	
 	float speed = 7;
 	float rad = PIXEL_TO_METERS(10);
-	float mass = 200;
+	float mass = 1000;
 	float velo = 300;
 
 };

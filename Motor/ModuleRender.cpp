@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
+#include "ModuleWindow.h"
+
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -48,6 +50,12 @@ update_status ModuleRender::PreUpdate()
 // Update: debug camera
 update_status ModuleRender::Update()
 {
+
+	static char title[256];
+	sprintf_s(title, 256, "Ball Velocity: %.2f m/s | Cannon Rotation: %i ", App->player->velo, App->player->PlayerRotation);
+
+	App->window->SetTitle(title);
+
 	/*
 	int speed = 3;
 
@@ -72,6 +80,7 @@ update_status ModuleRender::PostUpdate()
 	SDL_RenderPresent(renderer);
 	return UPDATE_CONTINUE;
 }
+
 
 // Called before quitting
 bool ModuleRender::CleanUp()

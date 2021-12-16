@@ -115,11 +115,14 @@ public:
 
 	Ball* NewBall(int rad, double mass, double x, double y, float v , float angle);
 
+	bool checkCollision(Ball* a, SDL_Rect b);
+
+	void AddForce(Ball* obj ,float fx, float fy);
 
 private:
 
-	float dt = 1.0f/16;
-	float g = 40.0f;
+	float dt = 1.0f/60;
+	float g = 180.0f;
 	SDL_Texture* BALL;
 	bool debug;
 };

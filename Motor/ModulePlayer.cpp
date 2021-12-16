@@ -37,6 +37,8 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+
+
 	/*SDL_Rect player = { position.x, position.y, 50, 50 };*/
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
@@ -47,13 +49,21 @@ update_status ModulePlayer::Update()
 		cx -= speed;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+		velo -= 1;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+		velo += 1;
+	}
+
 	//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 	//	App->player->position.y += 8;
 	//}
 	//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 	//	App->player->position.y -= 8;
 	//}
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 		PlayerRotation -= 1;
 	}
