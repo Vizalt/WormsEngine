@@ -53,7 +53,7 @@ update_status Motor::Update()
 			b->data->ax = b->data->ay = 0.0;
 			App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
 			ComputeForces(b->data, dt);
-			// Compute Aerodynamic Lift & Drag forces
+			// Compute Aerodynamic Drag forces
 			float vxr = b->data->vx - atmosphere.windx;
 			float vyr = b->data->vy - atmosphere.windy;
 			double speed = CalculateModule(vxr, vyr);

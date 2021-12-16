@@ -64,7 +64,7 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) {
-		App->motor->NewBall(10, 200, position.x+20, position.y+15, 100, PlayerRotation);
+		App->motor->NewBall(10, 200, position.x+20, position.y+15, 300, PlayerRotation);
 	}
 	/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
 	App->renderer->Blit(CannonTex, position.x-15, position.y+8, NULL, 1.0f,-PlayerRotation);

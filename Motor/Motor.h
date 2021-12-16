@@ -40,7 +40,7 @@ public:
 	double mass;
 
 	// Aerodynamics stuff
-	double surface = 0.0; // Effective wet surface
+	double surface = 0.1; // Effective wet surface
 	//double cl; // Lift coefficient
 	double cd = 1.0; // Drag coefficient
 
@@ -71,10 +71,10 @@ class Atmosphere
 {
 public:
 
-	float windx = 1.0;
-	float windy = 1.0;
+	float windx = 0.0;
+	float windy = 0.0;
 
-	float density = 1.225;
+	float density = 0.225;
 };
 
 struct Ground {
@@ -123,7 +123,7 @@ public:
 private:
 
 	float dt = 1.0f/16;
-	float g = 100.0f;
+	float g = 40.0f;
 	SDL_Texture* BALL;
 	bool debug;
 };
