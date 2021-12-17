@@ -85,4 +85,10 @@ public:
 
 	PhysBody* player_lose;
 	uint player_lose_fx;
+
+	int sx = PIXEL_TO_METERS(0);
+	int sy = PIXEL_TO_METERS(500);
+	int sw = PIXEL_TO_METERS(1024);
+	int sh = PIXEL_TO_METERS(280);
+
 };
