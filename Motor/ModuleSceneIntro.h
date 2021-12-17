@@ -87,8 +87,13 @@ public:
 	uint player_lose_fx;
 
 	int sx = PIXEL_TO_METERS(0);
-	int sy = PIXEL_TO_METERS(500);
+	int sy = PIXEL_TO_METERS(650);
 	int sw = PIXEL_TO_METERS(1024);
 	int sh = PIXEL_TO_METERS(280);
+
+	int sx2 = PIXEL_TO_METERS(0);
+	int sy2 = PIXEL_TO_METERS(0);
+	int sw2 = PIXEL_TO_METERS(1024);
+	int sh2 = PIXEL_TO_METERS(100);
 
 };

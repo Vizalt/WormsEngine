@@ -49,6 +49,10 @@ update_status ModuleSceneIntro::Update()
 
 	App->renderer->DrawQuad(Suelo, 30, 202, 150);
 
+	SDL_Rect Suelo2 { sx2, sy2, sw2, sh2 };
+
+	App->renderer->DrawQuad(Suelo2, 162, 34, 102);
+
 	return UPDATE_CONTINUE;
 }
 

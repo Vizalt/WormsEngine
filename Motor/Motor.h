@@ -82,7 +82,7 @@ public:
 
 struct Ground {
 	int x = 0;
-	int y = 500;
+	int y = 650;
 };
 
 class Motor : public Module

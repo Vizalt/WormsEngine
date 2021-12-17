@@ -76,7 +76,7 @@ update_status Motor::Update()
 			integrators(b->data, dt);
 
 
-			if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 20))
+			if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
 			{
 				// For now, just stop the ball when it reaches the ground.
 				//ball.vx = ball.vy = 0.0;
