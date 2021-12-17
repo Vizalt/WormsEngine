@@ -58,12 +58,17 @@ update_status Motor::Update()
 			float vyr = b->data->vy - atmosphere.windy;
 			double speed = CalculateModule(vxr, vyr);
 			double fdrag = 0.5 * atmosphere.density * speed * speed * b->data->surface * b->data->cd;
-			Unitari(vxr, vyr, speed);
-			double fdx = -vxr*fdrag; // Let's assume Drag is aligned with x-axis (in your game, generalize this)
+			double flift = 0.5 * atmosphere.density * speed * speed * b->data->surface * b->data->cl;
+			Unitari(vxr, vyr);
+			double fdx = -vxr*fdrag; //Drag is antiparalel to the ball velocity
 			double fdy = -vyr * fdrag;
+			double flx = vxr * flift; //Lift is perpendicular to the ball velocity
+			double fly = vyr * flift;
 			// Add gravity force to the total accumulated force of the ball
 			b->data->fx += fdx;
 			b->data->fy += fdy;
+			b->data->fx += flx;
+			b->data->fy += fly;
 			//b->data->fy += fdy;
 
 			newton_law(b->data, dt);
@@ -132,13 +137,15 @@ update_status Motor::PostUpdate()
 }
 
 double Motor::CalculateModule(float x, float y) {
-	double vel;
-	vel = sqrt((x * x) + (y * y));
+	double dir;
+	dir = sqrt((x * x) + (y * y));
 
-	return vel;
+	return dir;
 }
 
-void Motor::Unitari(float x, float y, double m) {
+void Motor::Unitari(float x, float y) {
+	double m;
+	m = CalculateModule(x, y);
 	x = x / m;
 	y = y / m;
 }

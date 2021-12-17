@@ -40,8 +40,8 @@ public:
 	double mass;
 
 	// Aerodynamics stuff
-	double surface = 0.1; // Effective wet surface
-	//double cl; // Lift coefficient
+	double surface; // Effective wet surface
+	double cl = 1.0; // Lift coefficient
 	double cd = 1.0; // Drag coefficient
 
 	// Has physics enabled?
@@ -56,6 +56,7 @@ public:
 	{
 		this->rad = rad;
 		this->mass = mass;
+		this->surface = 3.14 * rad;
 		this->x = x;
 		this->y = y;
 		this->vx = v * cos(-angle * DEGTORAD);
@@ -71,8 +72,8 @@ class Atmosphere
 {
 public:
 
-	float windx = 0.0;
-	float windy = 0.0;
+	float windx = 1.0;
+	float windy = 1.0;
 
 	float density = 0.225;
 };
@@ -107,7 +108,7 @@ public:
 
 	double CalculateModule(float x, float y);
 
-	void Unitari(float x, float y, double m);
+	void Unitari(float x, float y);
 
 	void newton_law(Ball* ball, float dt);
 
