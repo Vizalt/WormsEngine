@@ -41,9 +41,11 @@ public:
 
 	// Aerodynamics stuff
 	double surface; // Effective wet surface
-	double cl = 1.0; // Lift coefficient
-	double cd = 1.0; // Drag coefficient
+	double cl = 0.9; // Lift coefficient
+	double cd = 0.9; // Drag coefficient
 
+	float g = 280.0f;
+	bool other = true;
 	// Has physics enabled?
 	bool physics_enabled = true;
 
@@ -120,10 +122,16 @@ public:
 
 	void AddForce(Ball* obj ,float fx, float fy);
 
+	void adios();
+
+	void integrators(Ball* ball, float dt);
+
+	int moto = 1;
+
 private:
 
 	float dt = 1.0f/60;
-	float g = 180.0f;
+	
 	SDL_Texture* BALL;
 	bool debug;
 };

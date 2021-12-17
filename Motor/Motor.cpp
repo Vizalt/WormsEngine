@@ -67,29 +67,44 @@ update_status Motor::Update()
 			// Add gravity force to the total accumulated force of the ball
 			b->data->fx += fdx;
 			b->data->fy += fdy;
+			integrators(b->data, dt);
 			b->data->fx += flx;
 			b->data->fy += fly;
 			//b->data->fy += fdy;
 
 			newton_law(b->data, dt);
-			integrator_velocity_verlet(b->data, dt);
+			integrators(b->data, dt);
 
 
-			if (b->data->y + b->data->rad + 5 > ground.y)
+			if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 20))
 			{
 				// For now, just stop the ball when it reaches the ground.
 				//ball.vx = ball.vy = 0.0;
 				/*ball.ax = ball.ay = 0.0;
 				ball.fx = ball.fy = 0.0;*/
 				b->data->vx = b->data->vx * 0.9f;
-				b->data->vy = -b->data->vy * 0.9f;
+				b->data->vy = -b->data->vy * 0.8f;
 				b->data->ax = -b->data->ay;
 				//	ball.physics_enabled = false;
+			}
+			
+
+			//if (b->data->y <= 379)
+			//{
+			//	other = true;
+			//	b->data->g = -b->data->g;
+			//	//b->data->vy = -b->data->vy;
+			//}
+			if (b->data->other == true && b->data->y <= 379)
+			{
+				b->data->other = false;
+				b->data->g = -b->data->g;
 			}
 		}
 
 		b = b->next;
 	}
+	//adios();
 	//App->renderer->Blit(BALL, ball.x, ball.y, NULL, 1.0f);
 	
 	//if(b->data->physics_enabled==true){
@@ -127,6 +142,8 @@ update_status Motor::Update()
 // 
 update_status Motor::PostUpdate()
 {
+
+	adios();
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
@@ -158,7 +175,7 @@ void Motor::integrator_velocity_verlet(Ball* ball, float dt)
 	ball->y += ball->vy * dt + 0.5 * ball->ay * dt * dt;
 	ball->vx += ball->ax * dt;
 	ball->vy += ball->ay * dt;
-	LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
+	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
 }
 
 
@@ -198,7 +215,7 @@ void Motor::newton_law(Ball* ball, float dt)
 
 	ball->ax = ball->fx / ball->mass;
 	ball->ay = ball->fy / ball->mass;
-	LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
+	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
 
 	
 }
@@ -208,13 +225,13 @@ void Motor::ComputeForces(Ball* ball, float dt)
 
 	// Compute Gravity force
 	 ball->fgx = ball->mass * 0.0;
-	 ball->fgy = ball->mass * g; // Let's assume gravity is constant and downwards
+	 ball->fgy = ball->mass * ball->g; // Let's assume gravity is constant and downwards
 
 	// Add gravity force to the total accumulated force of the ball
 	ball->fx += ball->fgx;
 	ball->fy += ball->fgy;
 
-	LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
+	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
 }
 
 Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float angle) 
@@ -232,3 +249,62 @@ Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float an
 //	obj->vx += fx;
 //	obj->vy += fy;
 //}
+
+void Motor::adios()
+{
+
+	p2List_item<Ball*>* b = Balls.getFirst();
+	bool exit = false;
+	while (b != NULL && !exit)
+	{
+		if ((b->data->vx < 0.3 && b->data->vy < 0.3) || b->data->x > 1024)
+		{
+		//	b->data->physics_enabled = false;
+			Ball* a = b->data;
+			Balls.del(Balls.findNode(a));
+			delete a;
+			exit = true;
+		}
+		else
+		{
+			b = b->next;
+		}
+
+	}
+
+}
+
+void Motor::integrators(Ball* ball, float dt)
+{
+	switch (moto)
+	{
+	case 1:  //Verlet
+		ball->x += ball->vx * dt + 0.5 * ball->ax * dt * dt;
+		ball->y += ball->vy * dt + 0.5 * ball->ay * dt * dt;
+		ball->vx += ball->ax * dt;
+		ball->vy += ball->ay * dt;
+
+		break;
+
+	case 2: //integrator_bw_euler
+
+		ball->x = ball->x + ball->vx * dt;
+		ball->y = ball->y + ball->vy * dt;
+		ball->vx = ball->vx+ ball->ax * dt;
+		ball->vy = ball->vy + ball->ay * dt;
+
+		break;
+
+	case 3:  //integrator_fw_euler
+
+		ball->vx = ball->vx + ball->ax * dt;
+		ball->vy = ball->vy + ball->ay * dt;
+		
+		ball->x = ball->x + ball->vx * dt;
+		ball->y = ball->y + ball->vy * dt;
+
+		break;
+
+
+	}
+}
