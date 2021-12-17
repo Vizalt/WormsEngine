@@ -43,9 +43,11 @@ update_status ModuleSceneIntro::PreUpdate()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
-	
-	App->renderer->DrawLine(-1000, App->motor->ground.y,2000 , App->motor->ground.y, 255, 0, 0);
+	App->renderer->DrawLine(-1000, App->motor->ground.y, 2000, App->motor->ground.y, 255, 0, 0);
 
+	SDL_Rect Suelo{sx, sy, sw, sh};
+
+	App->renderer->DrawQuad(Suelo, 30, 202, 150);
 
 	return UPDATE_CONTINUE;
 }
