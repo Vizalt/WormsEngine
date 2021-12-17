@@ -11,6 +11,12 @@
 //
 //
 //};
+enum types
+{
+	PLAYER,
+	PLAYER2,
+	BALL
+};
 
 class Ball
 {
@@ -18,6 +24,7 @@ public:
 	// Position
 	// You could also use an array/vector
 	
+	types type;
 
 	double x=0;
 	double y = 0;
@@ -54,7 +61,7 @@ public:
 
 //	Ball* NewBall(int rad, double mass, double x, double y, float v);
 
-	Ball(int rad, double mass, double x, double y, float v, float angle)
+	Ball(int rad, double mass, double x, double y, float v, float angle, types ty)
 	{
 		this->rad = rad;
 		this->mass = mass;
@@ -63,7 +70,7 @@ public:
 		this->y = y;
 		this->vx = v * cos(-angle * DEGTORAD);
 		this->vy = v * sin(-angle * DEGTORAD);
-
+		this->type = ty;
 	}
 	~Ball()
 	{}
@@ -132,7 +139,7 @@ private:
 
 	float dt = 1.0f/60;
 	
-	SDL_Texture* BALL;
+	//SDL_Texture* BALL;
 	bool debug;
 };
 

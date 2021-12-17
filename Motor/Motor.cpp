@@ -30,7 +30,7 @@ bool Motor::Start()
 	//ball.vx = 30;
 	//ball.vy = 10;
 
-	BALL = App->textures->Load("pinball/sol.png");
+	//BALL = App->textures->Load("pinball/sol.png");
 	return true;
 }
 
@@ -79,22 +79,13 @@ update_status Motor::Update()
 			if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
 			{
 				// For now, just stop the ball when it reaches the ground.
-				//ball.vx = ball.vy = 0.0;
-				/*ball.ax = ball.ay = 0.0;
-				ball.fx = ball.fy = 0.0;*/
+		
 				b->data->vx = b->data->vx * 0.9f;
 				b->data->vy = -b->data->vy * 0.8f;
 				b->data->ax = -b->data->ay;
 				//	ball.physics_enabled = false;
 			}
 			
-
-			//if (b->data->y <= 379)
-			//{
-			//	other = true;
-			//	b->data->g = -b->data->g;
-			//	//b->data->vy = -b->data->vy;
-			//}
 			if (b->data->other == true && b->data->y <= 379)
 			{
 				b->data->other = false;
@@ -104,35 +95,7 @@ update_status Motor::Update()
 
 		b = b->next;
 	}
-	//adios();
-	//App->renderer->Blit(BALL, ball.x, ball.y, NULL, 1.0f);
-	
-	//if(b->data->physics_enabled==true){
-	//Balls. = ball.fy = 0.0;
-	//balls.ax = ball.ay = 0.0;
-	//// Step #1: Compute forces
 
-	//ComputeForces(ball, dt);
-
-	//// Step #2: 2nd Newton's Law: SUM_Forces = mass * accel --> accel = SUM_Forces / mass
-	//newton_law(ball, dt);
-	//// Step #3: Integrate --> from accel to new velocity & new position. 
-	//integrator_velocity_verlet(ball, dt);
-	////integrator_fw_euler(ball,dt);
-
-	//// Step #4: solve collisions
-	//if (ball.y+ball.rad+5> ground.y)
-	//{
-	//	// For now, just stop the ball when it reaches the ground.
-	//	//ball.vx = ball.vy = 0.0;
-	//	/*ball.ax = ball.ay = 0.0;
-	//	ball.fx = ball.fy = 0.0;*/
-	//	ball.vy = -ball.vy*0.9f;
-	//	ball.vx = ball.vx * 0.9f;
-	//	ball.ay = -ball.ay;
-	////	ball.physics_enabled = false;
-	//}
-	//}
 	return UPDATE_CONTINUE;
 }
 
@@ -179,27 +142,6 @@ void Motor::integrator_velocity_verlet(Ball* ball, float dt)
 }
 
 
-//void Motor::integrator_bw_euler(Ball* ball, float dt)
-//{
-//	ball.x = ball.x + ball.vx * dt;
-//	ball.y = ball.y + ball.vy * dt;
-//	ball.vx = ball.vx+ ball.ax * dt;
-//	ball.vy = ball.vy + ball.ay * dt;
-//	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
-//}
-//
-//void Motor::integrator_fw_euler(Ball* ball, float dt)
-//{
-//	
-//	ball.vx = ball.vx + ball.ax * dt;
-//	ball.vy = ball.vy + ball.ay * dt;
-//
-//	ball.x = ball.x + ball.vx * dt;
-//	ball.y = ball.y + ball.vy * dt;
-//
-//	LOG("VX= %d, VY= %d ", ball.vx, ball.vy);
-//}
-
 // Called before quitting
 bool Motor::CleanUp()
 {
@@ -236,7 +178,7 @@ void Motor::ComputeForces(Ball* ball, float dt)
 
 Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float angle) 
 {
-	Ball* a = new Ball( rad,  mass,  x,  y, v, angle);
+	Ball* a = new Ball( rad,  mass,  x,  y, v, angle, BALL);
 	Balls.add(a);
 	return a;
 }
@@ -255,15 +197,18 @@ void Motor::adios()
 
 	p2List_item<Ball*>* b = Balls.getFirst();
 	bool exit = false;
+	
 	while (b != NULL && !exit)
 	{
 		if ((b->data->vx < 0.3 && b->data->vy < 0.3) || b->data->x > 1024)
 		{
-		//	b->data->physics_enabled = false;
+			b->data->physics_enabled = false;
 			Ball* a = b->data;
 			Balls.del(Balls.findNode(a));
 			delete a;
 			exit = true;
+
+			
 		}
 		else
 		{
