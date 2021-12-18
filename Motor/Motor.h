@@ -156,6 +156,10 @@ public:
 
 	int moto = 1;
 
+	bool DragActive=true;
+	bool LiftActive = true;
+	bool NewtonActive = true;
+
 private:
 
 	float dt = 1.0f/60;

@@ -45,15 +45,20 @@ update_status Motor::Update()
 
 				b->data->fx = b->data->fy = 0.0;
 				b->data->ax = b->data->ay = 0.0;
-				App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
+				App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 255, 255);
 				ComputeForces(b->data, dt);
-				DragForce(b->data);
-				integrators(b->data, dt);
-				LiftForce(b->data);
-
-				newton_law(b->data, dt);
-				integrators(b->data, dt);
-
+				if(DragActive==true){
+					DragForce(b->data);
+					integrators(b->data, dt);
+				}		
+				if (LiftActive == true) {
+					LiftForce(b->data);
+					integrators(b->data, dt);
+				}
+				if (NewtonActive == true) {
+					newton_law(b->data, dt);
+					integrators(b->data, dt);
+				}
 
 				if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
 				{
