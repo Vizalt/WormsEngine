@@ -56,8 +56,9 @@ public:
 	// Has physics enabled?
 	bool physics_enabled = true;
 
-	int rad;
+	int rad = 0;
 
+	SDL_Rect rectan;
 
 //	Ball* NewBall(int rad, double mass, double x, double y, float v);
 
@@ -73,9 +74,9 @@ public:
 		this->type = ty;
 	}
 
-	Ball(SDL_Rect* rect, double mass, double x, double y, types ty)
+	Ball(SDL_Rect rect, double mass, double x, double y, types ty)
 	{
-		this->rad = rad;
+		this->rectan = rect;
 		this->mass = mass;
 		this->surface = 3.14 * rad;
 		this->x = x;
@@ -138,9 +139,9 @@ public:
 
 	Ball* NewBall(int rad, double mass, double x, double y, float v , float angle);
 
-	Ball* NewPlayer(SDL_Rect* rect, double mass, double x, double y);
+	Ball* NewPlayer(double, double mass, double x, double y);
 
-	Ball* NewPlayer2(SDL_Rect* rect, double mass, double x, double y);
+	Ball* NewPlayer2(SDL_Rect rect, double mass, double x, double y);
 
 	void DragForce(Ball* a);
 

@@ -83,7 +83,8 @@ update_status Motor::Update()
 			}
 			if (b->data->type == PLAYER)
 			{
-
+				/*SDL_Rect owo{b->data->x,b->data->y,};
+				App->renderer->DrawQuad(b->data->rectan, 20, 20, 20);*/
 
 
 			}
@@ -209,14 +210,14 @@ Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float an
 	return a;
 }
 
-Ball* Motor::NewPlayer(SDL_Rect* rect, double mass, double x, double y)
-{
-	Ball* a = new Ball(rect, mass, x, y, PLAYER);
-	Balls.add(a);
-	return a;
-}
+//Ball* Motor::NewPlayer(SDL_Rect rect, double mass, double x, double y)
+//{
+//	Ball* a = new Ball(rect, mass, x, y, PLAYER);
+//	Balls.add(a);
+//	return a;
+//}
 
-Ball* Motor::NewPlayer2(SDL_Rect* rect, double mass, double x, double y)
+Ball* Motor::NewPlayer2(SDL_Rect rect, double mass, double x, double y)
 {
 	Ball* a = new Ball(rect, mass, x, y, PLAYER2);
 	Balls.add(a);
