@@ -19,16 +19,7 @@ bool Motor::Start()
 {
 	LOG("Creating Physics 2D environment");
 	
-	//// Set physics properties of the ball
-	//ball.mass = 10; // kg
-	////ball.surface = 2; // m^2
-	////ball.cd = 0.4;
-	////ball.cl = 1.2;
-	//ball.rad = 10;
-	//// Set initial position and velocity of the ball
-	//ball.x = ball.y = 30.0;
-	//ball.vx = 30;
-	//ball.vy = 10;
+	
 
 	//BALL = App->textures->Load("pinball/sol.png");
 	return true;

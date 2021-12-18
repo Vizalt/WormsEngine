@@ -111,9 +111,9 @@ public:
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
-	void integrator_velocity_verlet(Ball* ball, float dt);
+	/*void integrator_velocity_verlet(Ball* ball, float dt);
 	void integrator_bw_euler(Ball* ball, float dt);
-	void integrator_fw_euler(Ball* ball, float dt);
+	void integrator_fw_euler(Ball* ball, float dt);*/
 
 	double CalculateModule(float x, float y);
 
