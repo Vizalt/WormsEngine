@@ -44,24 +44,9 @@ update_status Motor::Update()
 			b->data->ax = b->data->ay = 0.0;
 			App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
 			ComputeForces(b->data, dt);
-			// Compute Aerodynamic Drag forces
-			float vxr = b->data->vx - atmosphere.windx;
-			float vyr = b->data->vy - atmosphere.windy;
-			double speed = CalculateModule(vxr, vyr);
-			double fdrag = 0.5 * atmosphere.density * speed * speed * b->data->surface * b->data->cd;
-			double flift = 0.5 * atmosphere.density * speed * speed * b->data->surface * b->data->cl;
-			Unitari(vxr, vyr);
-			double fdx = -vxr*fdrag; //Drag is antiparalel to the ball velocity
-			double fdy = -vyr * fdrag;
-			double flx = vxr * flift; //Lift is perpendicular to the ball velocity
-			double fly = vyr * flift;
-			// Add gravity force to the total accumulated force of the ball
-			b->data->fx += fdx;
-			b->data->fy += fdy;
+			DragForce(b->data);
 			integrators(b->data, dt);
-			b->data->fx += flx;
-			b->data->fy += fly;
-			//b->data->fy += fdy;
+			LiftForce(b->data);
 
 			newton_law(b->data, dt);
 			integrators(b->data, dt);
@@ -119,6 +104,30 @@ void Motor::Unitari(float x, float y) {
 	m = CalculateModule(x, y);
 	x = x / m;
 	y = y / m;
+}
+
+void Motor::DragForce(Ball* a) {
+	float vxr = a->vx - atmosphere.windx;
+	float vyr = a->vy - atmosphere.windy;
+	double speed = CalculateModule(vxr, vyr);
+	double fdrag = 0.5 * atmosphere.density * speed * speed * a->surface * a->cd;
+	Unitari(vxr, vyr);
+	double fdx = -vxr * fdrag; //Drag is antiparalel to the ball velocity
+	double fdy = -vyr * fdrag;
+	a->fx += fdx;
+	a->fy += fdy;
+}
+
+void Motor::LiftForce(Ball* a) {
+	float vxr = a->vx - atmosphere.windx;
+	float vyr = a->vy - atmosphere.windy;
+	double speed = CalculateModule(vxr, vyr);
+	double flift = 0.5 * atmosphere.density * speed * speed * a->surface * a->cl;
+	Unitari(vxr, vyr);
+	double flx = vxr * flift; //Lift is perpendicular to the ball velocity
+	double fly = vyr * flift;
+	a->fx += flx;
+	a->fy += fly;
 }
 
 // Integration scheme: Velocity Verlet

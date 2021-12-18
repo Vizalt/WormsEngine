@@ -125,6 +125,10 @@ public:
 
 	Ball* NewBall(int rad, double mass, double x, double y, float v , float angle);
 
+	void DragForce(Ball* a);
+
+	void LiftForce(Ball* a);
+
 	bool checkCollision(Ball* a, SDL_Rect b);
 
 	void AddForce(Ball* obj ,float fx, float fy);
