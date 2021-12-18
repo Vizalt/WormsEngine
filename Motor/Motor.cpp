@@ -39,36 +39,57 @@ update_status Motor::Update()
 
 	while (b != NULL)
 	{
-		if (b->data->physics_enabled == true) {
-			b->data->fx = b->data->fy = 0.0;
-			b->data->ax = b->data->ay = 0.0;
-			App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
-			ComputeForces(b->data, dt);
-			DragForce(b->data);
-			integrators(b->data, dt);
-			LiftForce(b->data);
-
-			newton_law(b->data, dt);
-			integrators(b->data, dt);
-
-
-			if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
-			{
-				// For now, just stop the ball when it reaches the ground.
 		
-				b->data->vx = b->data->vx * 0.9f;
-				b->data->vy = -b->data->vy * 0.8f;
-				b->data->ax = -b->data->ay;
-				//	ball.physics_enabled = false;
-			}
+		if (b->data->physics_enabled == true) {
+			if(b->data->type==BALL){
+
+				b->data->fx = b->data->fy = 0.0;
+				b->data->ax = b->data->ay = 0.0;
+				App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 0, 66);
+				ComputeForces(b->data, dt);
+				DragForce(b->data);
+				integrators(b->data, dt);
+				LiftForce(b->data);
+
+				newton_law(b->data, dt);
+				integrators(b->data, dt);
+
+
+				if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
+				{
+					// For now, just stop the ball when it reaches the ground.
+		
+					b->data->vx = b->data->vx * 0.9f;
+					b->data->vy = -b->data->vy * 0.8f;
+					b->data->ax = -b->data->ay;
+					//	ball.physics_enabled = false;
+				}
 			
-			if (b->data->other == true && b->data->y <= 379)
+				if (b->data->other == true && b->data->y <= 379)
+				{
+					b->data->other = false;
+					b->data->g = -b->data->g;
+				}
+				if (b->data->other == false && b->data->y >= 379)
+				{
+					b->data->other = true;
+					b->data->g = b->data->g *-1;
+				}
+			}
+			if (b->data->type == PLAYER)
 			{
-				b->data->other = false;
-				b->data->g = -b->data->g;
+
+
+
+			}
+
+			if (b->data->type == PLAYER2)
+			{
+
+
+
 			}
 		}
-
 		b = b->next;
 	}
 
@@ -183,14 +204,28 @@ Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float an
 	return a;
 }
 
+Ball* Motor::NewPlayer(SDL_Rect* rect, double mass, double x, double y)
+{
+	Ball* a = new Ball(rect, mass, x, y, PLAYER);
+	Balls.add(a);
+	return a;
+}
+
+Ball* Motor::NewPlayer2(SDL_Rect* rect, double mass, double x, double y)
+{
+	Ball* a = new Ball(rect, mass, x, y, PLAYER2);
+	Balls.add(a);
+	return a;
+}
+
 //bool Motor::checkCollision(Ball* a, SDL_Rect b) {
 //
 //}
 
-//void Motor::AddForce(Ball* obj, float fx, float fy) {
-//	obj->vx += fx;
-//	obj->vy += fy;
-//}
+void Motor::AddForce(Ball* obj, float fx, float fy) {
+	obj->vx += fx;
+	obj->vy += fy;
+}
 
 void Motor::adios()
 {

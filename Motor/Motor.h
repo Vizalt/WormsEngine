@@ -72,6 +72,19 @@ public:
 		this->vy = v * sin(-angle * DEGTORAD);
 		this->type = ty;
 	}
+
+	Ball(SDL_Rect* rect, double mass, double x, double y, types ty)
+	{
+		this->rad = rad;
+		this->mass = mass;
+		this->surface = 3.14 * rad;
+		this->x = x;
+		this->y = y;
+		this->type = ty;
+	}
+
+
+
 	~Ball()
 	{}
 
@@ -124,6 +137,10 @@ public:
 	void ComputeForces(Ball* ball, float dt);
 
 	Ball* NewBall(int rad, double mass, double x, double y, float v , float angle);
+
+	Ball* NewPlayer(SDL_Rect* rect, double mass, double x, double y);
+
+	Ball* NewPlayer2(SDL_Rect* rect, double mass, double x, double y);
 
 	void DragForce(Ball* a);
 

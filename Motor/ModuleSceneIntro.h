@@ -82,7 +82,7 @@ public:
 	//uint fx_light_big;
 
 	/*p2DynArray<Light> lights;*/
-
+	
 	PhysBody* player_lose;
 	uint player_lose_fx;
 
