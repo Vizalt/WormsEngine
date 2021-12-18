@@ -26,7 +26,7 @@ public:
 	SDL_Texture* CannonTex;
 	SDL_Texture* SupportCannonTex;
 
-	int PlayerRotation = 0;
+	float PlayerRotation = 0;
 
 	float cx;
 	float cy;

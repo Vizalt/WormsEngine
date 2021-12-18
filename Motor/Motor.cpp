@@ -294,3 +294,9 @@ void Motor::integrators(Ball* ball, float dt)
 
 	}
 }
+
+Box* Motor::CreateBoxes(SDL_Rect rect, float w, float h) {
+	Box* c = new Box(rect, w, h);
+	Boxes.add(c);
+	return c;
+}

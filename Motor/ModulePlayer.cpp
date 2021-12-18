@@ -77,8 +77,8 @@ void ModulePlayer::MovementPlayer() {
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
 		PlayerRotation += 1;
 	}
-	if (PlayerRotation > 90) {
-		PlayerRotation = 90;
+	if (PlayerRotation > 180) {
+		PlayerRotation = 180;
 	}
 	if (PlayerRotation < 0) {
 		PlayerRotation = 0;

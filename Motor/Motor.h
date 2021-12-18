@@ -106,6 +106,21 @@ struct Ground {
 	int y = 650;
 };
 
+class Box {
+public:
+	float x;
+	float y;
+	float w;
+	float h;
+
+	Box(SDL_Rect Rect, float w, float h) {
+
+	}
+
+	~Box()
+	{}
+};
+
 class Motor : public Module
 {
 public:
@@ -119,6 +134,8 @@ public:
 	Ground ground;
 
 	p2List<Ball*> Balls;
+
+	p2List<Box*> Boxes;
 
 	bool Start();
 	update_status PreUpdate();
@@ -142,6 +159,8 @@ public:
 	Ball* NewPlayer(double, double mass, double x, double y);
 
 	Ball* NewPlayer2(SDL_Rect rect, double mass, double x, double y);
+
+	Box* CreateBoxes(SDL_Rect rect, float w, float h);
 
 	void DragForce(Ball* a);
 
