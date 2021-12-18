@@ -123,14 +123,14 @@ void Motor::Unitari(float x, float y) {
 
 // Integration scheme: Velocity Verlet
 // You should modularise all your algorithms into subroutines. Including the ones to compute forces.
-void Motor::integrator_velocity_verlet(Ball* ball, float dt)
-{
-	ball->x += ball->vx * dt + 0.5 * ball->ax * dt * dt;
-	ball->y += ball->vy * dt + 0.5 * ball->ay * dt * dt;
-	ball->vx += ball->ax * dt;
-	ball->vy += ball->ay * dt;
-	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
-}
+//void Motor::integrator_velocity_verlet(Ball* ball, float dt)
+//{
+//	ball->x += ball->vx * dt + 0.5 * ball->ax * dt * dt;
+//	ball->y += ball->vy * dt + 0.5 * ball->ay * dt * dt;
+//	ball->vx += ball->ax * dt;
+//	ball->vy += ball->ay * dt;
+//	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
+//}
 
 
 // Called before quitting
