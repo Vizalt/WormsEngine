@@ -87,20 +87,13 @@ bool Motor::Update()
 			{ 
 				b->data->fx = b->data->fy = 0.0;
 				b->data->ax = b->data->ay = 0.0;
-				/*SDL_Rect owo{ b->data->x,b->data->y,b->data->w, b->data->h };
-				App->renderer->DrawQuad(owo, 255, 20, 20);*/
 
-				//ComputeForces(b->data, dt);
-				//newton_law(b->data, dt);
-				/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-					AddForce(b->data,10,0);
-					b->data->vx -= 2;
-				}
-
-				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-					AddForce(b->data, -10, 0);
-					b->data->vx += 2;
-				}*/
+				int xp = b->data->x, yp = b->data->y;
+				SDL_Rect owo{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
+				App->renderer->DrawQuad(owo, 255, 20, 20, 255, false);
+				App->renderer->Blit(App->player->CannonTex, xp - 15, yp - 10, NULL, 1.0f, -App->player->PlayerRotation);
+				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp + 30, NULL, 1.0f);
+				
 
 				integrators(b->data, dt);
 
@@ -111,8 +104,27 @@ bool Motor::Update()
 
 				b->data->fx = b->data->fy = 0.0;
 				b->data->ax = b->data->ay = 0.0;
+
+				int xp = b->data->x, yp = b->data->y;
+				SDL_Rect uwu{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
+
+				App->renderer->DrawQuad(uwu, 255, 20, 20, 255, false);
+				App->renderer->Blit(App->player->CannonTex, xp - 15, yp - 10, NULL, 1.0f, App->player->PlayerRotation2);
+				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp - 5, NULL, 1.0f, 180);
+
 				
 				integrators(b->data, dt);
+			}
+			if (b->data->type == PLAYER || b->data->type == PLAYER2)
+			{
+				if (b->data->x < 0)
+				{
+					b->data->vx = -b->data->vx;
+				}
+				if (b->data->x > 1000)
+				{
+					b->data->vx = -b->data->vx;
+				}
 			}
 		}
 		b = b->next;

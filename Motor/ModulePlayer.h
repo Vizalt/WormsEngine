@@ -28,8 +28,9 @@ public:
 
 	float PlayerRotation = 0;
 	float PlayerRotation2 = 180;
-	int turn = 2;
-
+	int turn = 1;
+	bool shot1 = true;
+	bool shot2 = false;
 	float cx;
 	float cy;
 	
