@@ -68,13 +68,13 @@ bool ModulePlayer::Update()
 			
 			if (turn == 1) {
 				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-					//AddForce(b->data,10,0);
-					b->data->vx -= 2;
+					App->motor->AddForce(b->data, -2, 0);
+					//b->data->vx -= 2;
 				}
 
 				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-					//AddForce(b->data, -10, 0);
-					b->data->vx += 2;
+					App->motor->AddForce(b->data, 2, 0);
+					//b->data->vx += 2;
 				}
 				if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && shot1==true) {
 					App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, PlayerRotation);
