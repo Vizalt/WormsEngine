@@ -27,7 +27,8 @@ bool ModulePlayer::Start()
 	cx = PIXEL_TO_METERS(position.x);
 
 	App->motor->NewPlayer(PIXEL_TO_METERS(50), PIXEL_TO_METERS(50), 20000, cx, cy+15);
-
+	Player1Coll = App->coll->AddCollider({cx, cy + 15,w1, w1 }, Collider::Type::PLAYER, this);
+	 
 	position.x = 100;
 	position.y = 90;
 
@@ -35,6 +36,7 @@ bool ModulePlayer::Start()
 	cx = PIXEL_TO_METERS(position.x);
 
 	App->motor->NewPlayer2(PIXEL_TO_METERS(50), PIXEL_TO_METERS(50), 20000, cx, cy + 15);
+	Player2Coll = App->coll->AddCollider({ cx, cy + 15,w1, w1 }, Collider::Type::PLAYER2, this);
 
 	return true;
 }

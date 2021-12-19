@@ -26,7 +26,8 @@ bool ModuleSceneIntro::Start()
 	Box3Coll = App->coll->AddCollider({ b3x,b3y,b3w,b3h }, Collider::Type::BOX3, this);
 	Box4Coll = App->coll->AddCollider({ b4x,b4y,b4w,b4h }, Collider::Type::BOX4, this);
 	
-	
+
+
 	return ret;
 }
 
@@ -48,7 +49,9 @@ bool ModuleSceneIntro::PreUpdate()
 // Update: draw background
 bool ModuleSceneIntro::Update()
 {
+	
 	App->coll->DebugDraw();
+
 	App->renderer->DrawLine(-1000, App->motor->ground.y, 2000, App->motor->ground.y, 255, 0, 0);
 
 	SDL_Rect Suelo{sx, sy, sw, sh};

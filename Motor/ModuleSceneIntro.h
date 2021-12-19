@@ -122,4 +122,5 @@ public:
 	Collider* Box2Coll = nullptr;
 	Collider* Box3Coll = nullptr;
 	Collider* Box4Coll = nullptr;
+
 };

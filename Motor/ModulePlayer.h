@@ -32,15 +32,16 @@ public:
 	int turn = 1;
 	bool shot1 = true;
 	bool shot2 = false;
-	float cx;
-	float cy;
+	int cx;
+	int cy;
 	
-	float cx2;
-	float cy2;
-
 	float speed = 7;
 	float rad = PIXEL_TO_METERS(10);
 	float mass = 10000;
 	float velo = 300;
 
+	int w1 = PIXEL_TO_METERS(50);
+
+	Collider* Player1Coll = nullptr;
+	Collider* Player2Coll = nullptr;
 };

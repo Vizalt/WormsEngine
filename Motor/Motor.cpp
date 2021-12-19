@@ -92,6 +92,7 @@ bool Motor::Update()
 				int xp = b->data->x, yp = b->data->y;
 				SDL_Rect owo{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
 				App->renderer->DrawQuad(owo, 255, 20, 20, 255, false);
+				App->player->Player1Coll->SetPos(b->data->x - 5, b->data->y - 4);
 				App->renderer->Blit(App->player->CannonTex, xp - 15, yp - 10, NULL, 1.0f, -App->player->PlayerRotation);
 				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp + 30, NULL, 1.0f);
 
@@ -108,7 +109,7 @@ bool Motor::Update()
 
 				int xp = b->data->x, yp = b->data->y;
 				SDL_Rect uwu{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
-
+				App->player->Player2Coll->SetPos(b->data->x - 5, b->data->y - 4);
 				App->renderer->DrawQuad(uwu, 255, 20, 20, 255, false);
 				App->renderer->Blit(App->player->CannonTex2, xp - 15, yp - 10, NULL, 1.0f, App->player->PlayerRotation2);
 				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp - 5, NULL, 1.0f, 180);
