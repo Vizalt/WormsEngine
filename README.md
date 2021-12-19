@@ -7,6 +7,8 @@ Game of Worms is a space-based worm game in which two cannons are separated on t
 - Space - Shoot
 - Left and Right - Cannon tilt
 - Up and Down - Increase or decrease ball speed
+
+### Debug functionality
 - 1 - Enable/Disable Verlet
 - 2 - Enable/Disable Backward Euler
 - 3 - Enable/Disable Forward Euler
