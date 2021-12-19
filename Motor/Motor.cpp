@@ -86,20 +86,22 @@ update_status Motor::Update()
 			{ 
 				b->data->fx = b->data->fy = 0.0;
 				b->data->ax = b->data->ay = 0.0;
-				
-				if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
-					//AddForce(b->data,10,0);
-					b->data->x -= 2;
+				/*SDL_Rect owo{ b->data->x,b->data->y,b->data->w, b->data->h };
+				App->renderer->DrawQuad(owo, 255, 20, 20);*/
+
+				//ComputeForces(b->data, dt);
+				//newton_law(b->data, dt);
+				/*if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+					AddForce(b->data,10,0);
+					b->data->vx -= 2;
 				}
 
-				if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
-					//AddForce(b->data, -10, 0);
-					b->data->x += 2;
-				}
-				ComputeForces(b->data, dt);
-				SDL_Rect owo{b->data->x,b->data->y,b->data->w, b->data->h};
-				App->renderer->DrawQuad(owo, 255, 20, 20);
+				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+					AddForce(b->data, -10, 0);
+					b->data->vx += 2;
+				}*/
 
+				integrators(b->data, dt);
 
 			}
 
