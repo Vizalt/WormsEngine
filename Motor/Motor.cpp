@@ -37,6 +37,7 @@ update_status Motor::Update()
 {
 	// Step #0: Reset total acceleration and total accumulated force of the ball (clear old values)
 	p2List_item<Ball*>* b = Balls.getFirst();
+	p2List_item<Box*>* c = Boxes.getFirst();
 
 	while (b != NULL)
 	{
@@ -115,6 +116,14 @@ update_status Motor::Update()
 			}
 		}
 		b = b->next;
+	}
+
+	while (c != NULL) {
+
+
+		App->renderer->DrawQuad(c->data->rect, c->data->r, c->data->g, c->data->b);
+
+		c = c->next;
 	}
 
 	return UPDATE_CONTINUE;
@@ -313,8 +322,8 @@ void Motor::integrators(Ball* ball, float dt)
 	}
 }
 
-void Motor::CreateBoxes(float x, float y, float w, float h) {
-	Box* c = new Box(x, y, w, h);
+void Motor::CreateBoxes(SDL_Rect rect, int r, int g, int b) {
+	Box* c = new Box(rect, r, g, b);
 	Boxes.add(c);
 	//return c;
 }

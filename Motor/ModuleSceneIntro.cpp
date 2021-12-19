@@ -53,16 +53,16 @@ update_status ModuleSceneIntro::Update()
 
 	//Boxes
 	SDL_Rect Box1{ b1x,b1y,b1w,b1h };
-	App->renderer->DrawQuad(Box1, 129, 30, 216);
+	App->motor->CreateBoxes(Box1, 129, 30, 216);
 
 	SDL_Rect Box2{ b2x,b2y,b2w,b2h };
-	App->renderer->DrawQuad(Box2, 129, 30, 216);
+	App->motor->CreateBoxes(Box2, 129, 30, 216);
 
 	SDL_Rect Box3{ b3x,b3y,b3w,b3h };
-	App->renderer->DrawQuad(Box3, 129, 30, 216);
+	App->motor->CreateBoxes(Box3, 129, 30, 216);
 
 	SDL_Rect Box4{ b4x,b4y,b4w,b4h };
-	App->renderer->DrawQuad(Box4, 129, 30, 216);
+	App->motor->CreateBoxes(Box4, 129, 30, 216);
 
 	return UPDATE_CONTINUE;
 }

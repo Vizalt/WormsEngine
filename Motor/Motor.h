@@ -15,7 +15,8 @@ enum types
 {
 	PLAYER,
 	PLAYER2,
-	BALL
+	BALL,
+	BOX
 };
 
 class Ball
@@ -111,16 +112,16 @@ struct Ground {
 
 class Box {
 public:
-	float x;
-	float y;
-	float w;
-	float h;
+	SDL_Rect rect;
+	int r = 0;
+	int g = 0;
+	int b = 0;
 
-	Box(float x, float y, float w, float h) {
-		this->x = x;
-		this->y = y;
-		this->w = y;
-		this->h = h;
+	Box(SDL_Rect rect, int r, int g, int b) {
+		this->rect = rect;
+		this->r = r;
+		this->g = g;
+		this->b = b;
 	}
 
 	~Box()
@@ -166,7 +167,7 @@ public:
 
 	void NewPlayer2(double w, double h, double mass, double x, double y);
 
-	void CreateBoxes(float x, float y, float w, float h);
+	void CreateBoxes(SDL_Rect rect, int r, int g, int b);
 
 	void DragForce(Ball* a);
 
