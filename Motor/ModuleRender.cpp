@@ -52,7 +52,7 @@ update_status ModuleRender::Update()
 {
 
 	static char title[256];
-	sprintf_s(title, 256, "Ball Velocity: %.2f m/s | Cannon Rotation: %i ", App->player->velo, App->player->PlayerRotation);
+	sprintf_s(title, 256, "Ball Velocity: %.2f m/s | Cannon Rotation: %.2f ", App->player->velo, App->player->PlayerRotation);
 
 	App->window->SetTitle(title);
 

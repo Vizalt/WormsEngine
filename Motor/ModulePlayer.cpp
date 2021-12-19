@@ -88,8 +88,8 @@ void ModulePlayer::MovementPlayer() {
 		App->motor->NewBall(rad, mass, cx + 20, cy + 15, velo, PlayerRotation);
 	}
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
-		/*SDL_Rect owo{40, 493, 20, 20};
-		App->motor->NewPlayer(owo, 20000, );*/
+		//SDL_Rect owo{40, 493, 20, 20};
+		App->motor->NewPlayer(PIXEL_TO_METERS(20), PIXEL_TO_METERS(20), 20000, cx + 20, cy +15 );
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_REPEAT) {

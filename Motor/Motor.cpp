@@ -82,9 +82,22 @@ update_status Motor::Update()
 				}
 			}
 			if (b->data->type == PLAYER)
-			{
-				/*SDL_Rect owo{b->data->x,b->data->y,};
-				App->renderer->DrawQuad(b->data->rectan, 20, 20, 20);*/
+			{ 
+				b->data->fx = b->data->fy = 0.0;
+				b->data->ax = b->data->ay = 0.0;
+				
+				if (App->input->GetKey(SDL_SCANCODE_L) == KEY_REPEAT) {
+					//AddForce(b->data,10,0);
+					b->data->x -= 2;
+				}
+
+				if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT) {
+					//AddForce(b->data, -10, 0);
+					b->data->x += 2;
+				}
+				ComputeForces(b->data, dt);
+				SDL_Rect owo{b->data->x,b->data->y,b->data->w, b->data->h};
+				App->renderer->DrawQuad(owo, 255, 20, 20);
 
 
 			}
@@ -210,16 +223,16 @@ Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float an
 	return a;
 }
 
-//Ball* Motor::NewPlayer(SDL_Rect rect, double mass, double x, double y)
-//{
-//	Ball* a = new Ball(rect, mass, x, y, PLAYER);
-//	Balls.add(a);
-//	return a;
-//}
-
-Ball* Motor::NewPlayer2(SDL_Rect rect, double mass, double x, double y)
+Ball* Motor::NewPlayer(double w, double h, double mass, double x, double y)
 {
-	Ball* a = new Ball(rect, mass, x, y, PLAYER2);
+	Ball* a = new Ball(w,h, mass, x, y, PLAYER);
+	Balls.add(a);
+	return a;
+}
+
+Ball* Motor::NewPlayer2(double w, double h, double mass, double x, double y)
+{
+	Ball* a = new Ball(w, h, mass, x, y, PLAYER2);
 	Balls.add(a);
 	return a;
 }
@@ -241,7 +254,7 @@ void Motor::adios()
 	
 	while (b != NULL && !exit)
 	{
-		if ((b->data->vx < 0.3 && b->data->vy < 0.3) || b->data->x > 1024)
+		if (((b->data->vx < 0.3 && b->data->vy < 0.3) || b->data->x > 1024)&&b->data->type==BALL)
 		{
 			b->data->physics_enabled = false;
 			Ball* a = b->data;

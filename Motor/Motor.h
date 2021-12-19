@@ -58,6 +58,8 @@ public:
 
 	int rad = 0;
 
+	double w = 0;
+	double h = 0;
 	SDL_Rect rectan;
 
 //	Ball* NewBall(int rad, double mass, double x, double y, float v);
@@ -74,9 +76,10 @@ public:
 		this->type = ty;
 	}
 
-	Ball(SDL_Rect rect, double mass, double x, double y, types ty)
+	Ball(double w, double h, double mass, double x, double y, types ty)
 	{
-		this->rectan = rect;
+		this->w = w;
+		this->h = h;
 		this->mass = mass;
 		this->surface = 3.14 * rad;
 		this->x = x;
@@ -156,9 +159,9 @@ public:
 
 	Ball* NewBall(int rad, double mass, double x, double y, float v , float angle);
 
-	Ball* NewPlayer(double, double mass, double x, double y);
+	Ball* NewPlayer(double w,double h, double mass, double x, double y);
 
-	Ball* NewPlayer2(SDL_Rect rect, double mass, double x, double y);
+	Ball* NewPlayer2(double w, double h, double mass, double x, double y);
 
 	Box* CreateBoxes(SDL_Rect rect, float w, float h);
 
