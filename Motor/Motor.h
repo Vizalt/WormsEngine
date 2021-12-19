@@ -183,10 +183,9 @@ public:
 	bool LiftActive = true;
 	bool NewtonActive = true;
 
-private:
+	float dt = 1.0f / 60;
 
-	float dt = 1.0f/60;
-	
+private:
 	//SDL_Texture* BALL;
 	bool debug;
 };

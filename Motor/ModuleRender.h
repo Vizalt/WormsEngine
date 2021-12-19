@@ -22,4 +22,6 @@ public:
 public:
 	SDL_Renderer* renderer;
 	SDL_Rect camera;
+
+	const char* integratorr;
 };
