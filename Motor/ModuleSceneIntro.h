@@ -97,23 +97,29 @@ public:
 	int sh2 = PIXEL_TO_METERS(100);
 
 	//Boxes
-	float b1x = PIXEL_TO_METERS(100);
-	float b1y = PIXEL_TO_METERS(170);
-	float b1w = PIXEL_TO_METERS(90);
-	float b1h = PIXEL_TO_METERS(30);
+	int b1x = PIXEL_TO_METERS(100);
+	int b1y = PIXEL_TO_METERS(170);
+	int b1w = PIXEL_TO_METERS(90);
+	int b1h = PIXEL_TO_METERS(30);
 
-	float b2x = PIXEL_TO_METERS(100);
-	float b2y = PIXEL_TO_METERS(555);
-	float b2w = PIXEL_TO_METERS(90);
-	float b2h = PIXEL_TO_METERS(30);
+	int b2x = PIXEL_TO_METERS(100);
+	int b2y = PIXEL_TO_METERS(555);
+	int b2w = PIXEL_TO_METERS(90);
+	int b2h = PIXEL_TO_METERS(30);
 
-	float b3x = PIXEL_TO_METERS(824);
-	float b3y = PIXEL_TO_METERS(170);
-	float b3w = PIXEL_TO_METERS(90);
-	float b3h = PIXEL_TO_METERS(30);
+	int b3x = PIXEL_TO_METERS(824);
+	int b3y = PIXEL_TO_METERS(170);
+	int b3w = PIXEL_TO_METERS(90);
+	int b3h = PIXEL_TO_METERS(30);
 
-	float b4x = PIXEL_TO_METERS(824);
-	float b4y = PIXEL_TO_METERS(555);
-	float b4w = PIXEL_TO_METERS(90);
-	float b4h = PIXEL_TO_METERS(30);
+	int b4x = PIXEL_TO_METERS(824);
+	int b4y = PIXEL_TO_METERS(555);
+	int b4w = PIXEL_TO_METERS(90);
+	int b4h = PIXEL_TO_METERS(30);
+
+	//COLLIDERS
+	Collider* Box1Coll = nullptr;
+	Collider* Box2Coll = nullptr;
+	Collider* Box3Coll = nullptr;
+	Collider* Box4Coll = nullptr;
 };

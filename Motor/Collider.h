@@ -11,6 +11,11 @@ struct Collider
 	{
 		NONE = -1,
 		PLAYER,
+		PLAYER2,
+		BOX1,
+		BOX2,
+		BOX3,
+		BOX4,
 	
 		MAX
 	};

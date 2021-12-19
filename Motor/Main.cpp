@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
 				state = MAIN_EXIT;
 			}
 
-			if (App->input->BAKA == 1)
+			if (App->input->FinishGame == 1)
 				state = MAIN_FINISH;
 		}
 			break;

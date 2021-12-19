@@ -35,7 +35,7 @@ public:
 	{
 		return mouse_y;
 	}
-	int BAKA = 0;
+	int FinishGame = 0;
 private:
 	KEY_STATE* keyboard;
 	int mouse_x;
