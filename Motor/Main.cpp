@@ -62,7 +62,7 @@ int main(int argc, char ** argv)
 				state = MAIN_EXIT;
 			}
 
-			if (update_return == UPDATE_STOP)
+			if (App->input->BAKA == 1)
 				state = MAIN_FINISH;
 		}
 			break;
