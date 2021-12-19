@@ -79,10 +79,13 @@ bool ModulePlayer::Update()
 				if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && shot1==true) {
 					App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, PlayerRotation);
 					turn = 2;
+					b->data->physics_enabled = false;
 					shot2 = false;
 				}
 				if (shot1 == false)
 				{
+					b->data->vx = b->data->vy = 0.0f;
+					b->data->physics_enabled = true;
 					shot1 = true;
 				}
 				
@@ -105,10 +108,13 @@ bool ModulePlayer::Update()
 				if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)&& shot2 == true) {
 					App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, -PlayerRotation2);
 					shot1 = false;
+					b->data->physics_enabled = false;
 					turn = 1;
 				}
 				if (shot2==false)
 				{
+					b->data->vx = b->data->vy = 0.0f;
+					b->data->physics_enabled = true;
 					shot2 = true;
 				}
 				

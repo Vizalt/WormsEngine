@@ -42,68 +42,69 @@ bool Motor::Update()
 	while (b != NULL)
 	{
 		
-		if (b->data->physics_enabled == true) {
+		
 			if(b->data->type==BALL){
 
-				b->data->fx = b->data->fy = 0.0;
-				b->data->ax = b->data->ay = 0.0;
 				App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 255, 255);
-				ComputeForces(b->data, dt);
-				if(DragActive==true){
-					DragForce(b->data);
-					integrators(b->data, dt);
-				}		
-				if (LiftActive == true) {
-					LiftForce(b->data);
-					integrators(b->data, dt);
-				}
-				if (NewtonActive == true) {
-					newton_law(b->data, dt);
-					integrators(b->data, dt);
-				}
 
-				if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
-				{
-					// For now, just stop the ball when it reaches the ground.
-		
-					b->data->vx = b->data->vx * 0.9f;
-					b->data->vy = -b->data->vy * 0.8f;
-					b->data->ax = -b->data->ay;
-					//	ball.physics_enabled = false;
-				}
-			
-				if (b->data->other == true && b->data->y <= 379)
-				{
-					b->data->other = false;
-					b->data->g = -b->data->g;
-				}
-				if (b->data->other == false && b->data->y >= 379)
-				{
-					b->data->other = true;
-					b->data->g = b->data->g *-1;
+				if (b->data->physics_enabled == true) {
+					b->data->fx = b->data->fy = 0.0;
+					b->data->ax = b->data->ay = 0.0;
+					
+					ComputeForces(b->data, dt);
+					if (DragActive == true) {
+						DragForce(b->data);
+						integrators(b->data, dt);
+					}
+					if (LiftActive == true) {
+						LiftForce(b->data);
+						integrators(b->data, dt);
+					}
+					if (NewtonActive == true) {
+						newton_law(b->data, dt);
+						integrators(b->data, dt);
+					}
+
+					if ((b->data->y + b->data->rad + 5 > ground.y) || (b->data->y + b->data->rad + 5 <= 135))
+					{
+						// For now, just stop the ball when it reaches the ground.
+
+						b->data->vx = b->data->vx * 0.9f;
+						b->data->vy = -b->data->vy * 0.8f;
+						b->data->ax = -b->data->ay;
+						//	ball.physics_enabled = false;
+					}
+
+					if (b->data->other == true && b->data->y <= 379)
+					{
+						b->data->other = false;
+						b->data->g = -b->data->g;
+					}
+					if (b->data->other == false && b->data->y >= 379)
+					{
+						b->data->other = true;
+						b->data->g = b->data->g * -1;
+					}
 				}
 			}
 			if (b->data->type == PLAYER)
 			{ 
-				b->data->fx = b->data->fy = 0.0;
-				b->data->ax = b->data->ay = 0.0;
-
 				int xp = b->data->x, yp = b->data->y;
 				SDL_Rect owo{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
 				App->renderer->DrawQuad(owo, 255, 20, 20, 255, false);
 				App->renderer->Blit(App->player->CannonTex, xp - 15, yp - 10, NULL, 1.0f, -App->player->PlayerRotation);
 				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp + 30, NULL, 1.0f);
-				
 
-				integrators(b->data, dt);
-
+				if (b->data->physics_enabled == true)
+				{
+					b->data->fx = b->data->fy = 0.0;
+					b->data->ax = b->data->ay = 0.0;
+					integrators(b->data, dt);
+				}
 			}
 
 			if (b->data->type == PLAYER2)
 			{
-
-				b->data->fx = b->data->fy = 0.0;
-				b->data->ax = b->data->ay = 0.0;
 
 				int xp = b->data->x, yp = b->data->y;
 				SDL_Rect uwu{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
@@ -112,8 +113,12 @@ bool Motor::Update()
 				App->renderer->Blit(App->player->CannonTex, xp - 15, yp - 10, NULL, 1.0f, App->player->PlayerRotation2);
 				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp - 5, NULL, 1.0f, 180);
 
-				
-				integrators(b->data, dt);
+				if (b->data->physics_enabled == true)
+				{
+					b->data->fx = b->data->fy = 0.0;
+					b->data->ax = b->data->ay = 0.0;
+					integrators(b->data, dt);
+				}
 			}
 			if (b->data->type == PLAYER || b->data->type == PLAYER2)
 			{
@@ -126,7 +131,7 @@ bool Motor::Update()
 					b->data->vx = -b->data->vx;
 				}
 			}
-		}
+		
 		b = b->next;
 	}
 
