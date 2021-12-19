@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "Motor.h"
 #include "math.h"
+#include "ModuleCollisions.h"
+#include "ModuleSceneIntro.h"
 #include <iostream>
 #include <stdlib.h>
 // TODO 1: Include Box 2 header and library
@@ -38,7 +40,6 @@ bool Motor::Update()
 	// Step #0: Reset total acceleration and total accumulated force of the ball (clear old values)
 	p2List_item<Ball*>* b = Balls.getFirst();
 	p2List_item<Box*>* c = Boxes.getFirst();
-
 	while (b != NULL)
 	{
 		
@@ -46,10 +47,11 @@ bool Motor::Update()
 			if(b->data->type==BALL){
 
 				App->renderer->DrawCircle(b->data->x, b->data->y, b->data->rad, 255, 255, 255);
-
 				if (b->data->physics_enabled == true) {
 					b->data->fx = b->data->fy = 0.0;
 					b->data->ax = b->data->ay = 0.0;
+					b->data->ball_collider->SetPos(b->data->x - b->data->rad, b->data->y - b->data->rad);
+					
 					
 					ComputeForces(b->data, dt);
 					if (DragActive == true) {
@@ -85,6 +87,7 @@ bool Motor::Update()
 						b->data->other = true;
 						b->data->g = b->data->g * -1;
 					}
+					Colls(b->data);
 				}
 			}
 			if (b->data->type == PLAYER)
@@ -132,6 +135,8 @@ bool Motor::Update()
 					b->data->vx = -b->data->vx;
 				}
 			}
+
+			
 		
 		b = b->next;
 	}
@@ -248,9 +253,10 @@ void Motor::ComputeForces(Ball* ball, float dt)
 	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
 }
 
-void Motor::NewBall(int rad, double mass, double x, double y, float v, float angle) 
+void Motor::NewBall(int rad, double mass, double x, double y, float v, float angle)
 {
-	Ball* a = new Ball( rad,  mass,  x,  y, v, angle, BALL);
+	Collider* col = App->coll->AddCollider({int(x - rad), int(y - rad), rad * 2, rad * 2 }, Collider::Type::BALL, this);
+	Ball* a = new Ball( rad,  mass,  x,  y, v, angle, BALL, col);
 	Balls.add(a);
 	//return a;
 }
@@ -289,6 +295,7 @@ void Motor::adios()
 		if (((abs(b->data->vx) < 0.3 && abs(b->data->vy < 0.3)) || b->data->x > 1024 || b->data->x < -10)&&b->data->type==BALL)
 		{
 			b->data->physics_enabled = false;
+			App->coll->RemoveColl(b->data->ball_collider);
 			Ball* a = b->data;
 			Balls.del(Balls.findNode(a));
 			delete a;
@@ -344,4 +351,174 @@ void Motor::CreateBoxes(SDL_Rect rect, int r, int g, int b) {
 	Box* c = new Box(rect, r, g, b);
 	Boxes.add(c);
 	//return c;
+}
+
+void Motor::OnCollision(Collider* c1, Collider* c2) {
+	p2List_item<Ball*>* b = Balls.getFirst();
+	while (b != NULL) {
+		if (c1->type == Collider::Type::BALL && c2->type == Collider::Type::PLAYER) {
+			App->scene_intro->p2Win = true;
+		}
+		if (c1->type == Collider::Type::BALL && c2->type == Collider::Type::PLAYER2) {
+			App->scene_intro->p1Win = true;
+		}
+		b = b->next;
+	}
+	
+}
+
+void Motor::Colls(Ball* b)
+{
+	///box1
+	int rig = App->scene_intro->b1x + App->scene_intro->b1w;
+	int dw = App->scene_intro->b1y + App->scene_intro->b1h;
+
+	if (b->x < rig &&
+		(b->x + b->rad) > App->scene_intro->b1x &&
+		b->y <dw &&
+		(b->y + b->rad + b->y)   > App->scene_intro->b1y) {
+
+		if (b->x < (rig))
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		//izq
+		if ((b->x + b->x + b->rad) > App->scene_intro->b1x)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		////dw
+		if (b->y < (dw))
+		{
+			b->vy = -b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+		////up
+		if ((b->y + b->rad + b->y) > App->scene_intro->b1y)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+	}
+
+	//box2
+	int rig2 = App->scene_intro->b2x + App->scene_intro->b2w;
+	int dw2 = App->scene_intro->b2y + App->scene_intro->b2h;
+
+	if (b->x < rig2 &&
+		(b->x + b->rad) > App->scene_intro->b2x &&
+		b->y <dw2 &&
+		(b->y + b->rad + b->y)   > App->scene_intro->b2y) {
+
+		if (b->x < (rig2))
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		//izq
+		if ((b->x + b->x + b->rad) > App->scene_intro->b2x)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		////dw
+		if (b->y < (dw2))
+		{
+			b->vy = -b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+		////up
+		if ((b->y + b->rad + b->y) > App->scene_intro->b2y)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+	}
+
+	//box3
+	int rig3 = App->scene_intro->b3x + App->scene_intro->b3w;
+	int dw3 = App->scene_intro->b3y + App->scene_intro->b3h;
+
+	if (b->x < rig3 &&
+		(b->x + b->rad) > App->scene_intro->b3x &&
+		b->y <dw3 &&
+		(b->y + b->rad + b->y)   > App->scene_intro->b3y) {
+
+		if (b->x < (rig3))
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		//izq
+		if ((b->x + b->x + b->rad) > App->scene_intro->b3x)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		////dw
+		if (b->y < (dw3))
+		{
+			b->vy = -b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+		////up
+		if ((b->y + b->rad + b->y) > App->scene_intro->b3y)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+	}
+
+	//box4
+	int rig4 = App->scene_intro->b4x + App->scene_intro->b4w;
+	int dw4 = App->scene_intro->b4y + App->scene_intro->b4h;
+
+	if (b->x < rig4 &&
+		(b->x + b->rad) > App->scene_intro->b4x &&
+		b->y <dw4 &&
+		(b->y + b->rad + b->y)   > App->scene_intro->b4y) {
+
+		if (b->x < (rig4))
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		//izq
+		if ((b->x + b->x + b->rad) > App->scene_intro->b4x)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = -b->vx * 0.9;
+			b->ax = -b->ax;
+		}
+		////dw
+		if (b->y < (dw4))
+		{
+			b->vy = -b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+		////up
+		if ((b->y + b->rad + b->y) > App->scene_intro->b4y)
+		{
+			b->vy = b->vy * 0.9;
+			b->vx = b->vx * 0.9;
+			b->ay = -b->ay;
+		}
+	}
+
 }

@@ -2,7 +2,9 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Animation.h"
+#include "ModuleCollisions.h"
 #include "p2Point.h"
+#include "ModuleSceneIntro.h"
 
 //enum
 //{
@@ -58,14 +60,15 @@ public:
 	bool physics_enabled = true;
 
 	int rad = 0;
-
 	double w = 0;
 	double h = 0;
 	SDL_Rect rectan;
 
+	Collider* ball_collider = nullptr;
+
 //	Ball* NewBall(int rad, double mass, double x, double y, float v);
 
-	Ball(int rad, double mass, double x, double y, float v, float angle, types ty)
+	Ball(int rad, double mass, double x, double y, float v, float angle, types ty, Collider* col)
 	{
 		this->rad = rad;
 		this->mass = mass;
@@ -75,6 +78,7 @@ public:
 		this->vx = v * cos(-angle * DEGTORAD);
 		this->vy = v * sin(-angle * DEGTORAD);
 		this->type = ty;
+		this->ball_collider = col;
 	}
 
 	Ball(double w, double h, double mass, double x, double y, types ty)
@@ -173,7 +177,9 @@ public:
 
 	void LiftForce(Ball* a);
 
-	bool checkCollision(Ball* a, SDL_Rect b);
+	void OnCollision(Collider* c1, Collider* c2) override;
+
+	void Colls(Ball* b);
 
 	void AddForce(Ball* obj ,float fx, float fy);
 

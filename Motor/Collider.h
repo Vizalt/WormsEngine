@@ -16,6 +16,7 @@ struct Collider
 		BOX2,
 		BOX3,
 		BOX4,
+		BALL,
 	
 		MAX
 	};

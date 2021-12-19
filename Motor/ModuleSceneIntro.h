@@ -82,7 +82,10 @@ public:
 	//uint fx_light_big;
 
 	/*p2DynArray<Light> lights;*/
-	
+	bool p1Win = false;
+	bool p2Win = false;
+	SDL_Texture* P1WIN = nullptr;
+	SDL_Texture* P2WIN = nullptr;
 	PhysBody* player_lose;
 	uint player_lose_fx;
 

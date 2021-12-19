@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
+#include "ModuleSceneIntro.h"
 #include "Motor.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -52,85 +53,124 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 bool ModulePlayer::Update()
 {
-	MovementPlayer();
-	/*SDL_Rect player = { position.x, position.y, 50, 50 };*/
+	if (App->scene_intro->p1Win == false && App->scene_intro->p2Win == false) {
+			MovementPlayer();
+	
+	
+		/*SDL_Rect player = { position.x, position.y, 50, 50 };*/
 
-	/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
-	/*App->renderer->Blit(CannonTex, cx-15, cy+8, NULL, 1.0f,-PlayerRotation);
-	App->renderer->Blit(SupportCannonTex, cx - 6, cy + 46, NULL, 1.0f);*/
+		/*App->renderer->Blit(PlayerTex, position.x, position.y, NULL, 1.0f);*/
+		/*App->renderer->Blit(CannonTex, cx-15, cy+8, NULL, 1.0f,-PlayerRotation);
+		App->renderer->Blit(SupportCannonTex, cx - 6, cy + 46, NULL, 1.0f);*/
 
 
-	p2List_item<Ball*>* b = App->motor->Balls.getFirst();
+		p2List_item<Ball*>* b = App->motor->Balls.getFirst();
 
-	while (b != NULL)
-	{
-
-		if (b->data->type == PLAYER)
+		while (b != NULL)
 		{
-			
-			
-			if (turn == 1) {
-				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-					App->motor->AddForce(b->data, -2, 0);
-					//b->data->vx -= 2;
-				}
+			if (App->scene_intro->p1Win == false && App->scene_intro->p2Win == false) {
 
-				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-					App->motor->AddForce(b->data, 2, 0);
-					//b->data->vx += 2;
-				}
-				if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && shot1==true) {
-					App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, PlayerRotation);
-					turn = 2;
-					b->data->physics_enabled = false;
-					shot2 = false;
-				}
-				if (shot1 == false)
+				if (b->data->type == PLAYER)
 				{
-					b->data->vx = b->data->vy = 0.0f;
-					b->data->physics_enabled = true;
-					shot1 = true;
-				}
-				
-			}
-		}
 
-		 if (b->data->type == PLAYER2)
-		{
+
+					if (turn == 1) {
+					
+						if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+							App->motor->AddForce(b->data, -2, 0);
+							//b->data->vx -= 2;
+						}
+
+						if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+							App->motor->AddForce(b->data, 2, 0);
+							//b->data->vx += 2;
+						}
+						if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && shot1 == true) {
+							App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, PlayerRotation);
+							turn = 2;
+							App->coll->matrix[Collider::Type::BALL][Collider::Type::PLAYER] = false;
+							App->coll->matrix[Collider::Type::BALL][Collider::Type::PLAYER2] = true;
+							App->coll->matrix[Collider::Type::PLAYER][Collider::Type::BALL] = false;
+							App->coll->matrix[Collider::Type::PLAYER2][Collider::Type::BALL] = true;
+
+							b->data->physics_enabled = false;
+							shot2 = false;
+						}
+						if (shot1 == false)
+						{
+							b->data->vx = b->data->vy = 0.0f;
+							b->data->physics_enabled = true;
+							shot1 = true;
+						}
+
+					}
+				}
 			
-			if (turn == 2) {
-				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-					App->motor->AddForce(b->data,-2,0);
-					//b->data->vx -= 2;
-				}
-
-				if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-					App->motor->AddForce(b->data, 2, 0);
-					//b->data->vx += 2;
-				}
-				if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)&& shot2 == true) {
-					App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, -PlayerRotation2);
-					shot1 = false;
-					b->data->physics_enabled = false;
-					turn = 1;
-				}
-				if (shot2==false)
+				if (b->data->type == PLAYER2)
 				{
-					b->data->vx = b->data->vy = 0.0f;
-					b->data->physics_enabled = true;
-					shot2 = true;
-				}
-				
-			}
 
-		}
+					if (turn == 2) {
+					
+						if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+							App->motor->AddForce(b->data, -2, 0);
+							//b->data->vx -= 2;
+						}
+
+						if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+							App->motor->AddForce(b->data, 2, 0);
+							//b->data->vx += 2;
+						}
+						if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && shot2 == true) {
+							App->motor->NewBall(rad, mass, b->data->x + 20, b->data->y + 15, velo, -PlayerRotation2);
+							shot1 = false;
+							b->data->physics_enabled = false;
+							turn = 1;
+							App->coll->matrix[Collider::Type::BALL][Collider::Type::PLAYER] = true;
+							App->coll->matrix[Collider::Type::BALL][Collider::Type::PLAYER2] = false;
+							App->coll->matrix[Collider::Type::PLAYER][Collider::Type::BALL] = true;
+							App->coll->matrix[Collider::Type::PLAYER2][Collider::Type::BALL] = false;
+							
+						}
+						if (shot2 == false)
+						{
+							b->data->vx = b->data->vy = 0.0f;
+							b->data->physics_enabled = true;
+							shot2 = true;
+						}
+
+					}
+
+				}
+
+			}
 		
 
-		b = b->next;
+			b = b->next;
+		}
 	}
-
+	else {
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			App->scene_intro->p1Win = false;
+			App->scene_intro->p2Win = false;
+		}
+	}
 	return true;
 }
+
+
+//void ModulePlayer::OnCollision(Collider* c1, Collider* c2) {
+//	p2List_item<Ball*>* b = App->motor->Balls.getFirst();
+//	while (b != NULL) {
+//		if (c1->type == Collider::Type::BALL && c2->type == Collider::Type::PLAYER) {
+//			App->scene_intro->p2Win = true;
+//		}
+//		if (c1->type == Collider::Type::BALL && c2->type == Collider::Type::PLAYER2) {
+//			App->scene_intro->p1Win = true;
+//		}
+//		b = b->next;
+//	}
+//}
+
 
 void ModulePlayer::MovementPlayer() {
 

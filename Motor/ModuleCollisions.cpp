@@ -21,6 +21,7 @@ ModuleCollisions::ModuleCollisions(Application* app, bool start_enabled) : Modul
 	matrix[Collider::Type::PLAYER][Collider::Type::BOX2] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::BOX3] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::BOX4] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::BALL] = true;
 
 	//PLAYER2
 	matrix[Collider::Type::PLAYER2][Collider::Type::PLAYER2] = false;
@@ -29,6 +30,7 @@ ModuleCollisions::ModuleCollisions(Application* app, bool start_enabled) : Modul
 	matrix[Collider::Type::PLAYER2][Collider::Type::BOX2] = false;
 	matrix[Collider::Type::PLAYER2][Collider::Type::BOX3] = false;
 	matrix[Collider::Type::PLAYER2][Collider::Type::BOX4] = false;
+	matrix[Collider::Type::PLAYER2][Collider::Type::BALL] = true;
 
 	//BOX1
 	matrix[Collider::Type::BOX1][Collider::Type::BOX1] = false;
@@ -37,6 +39,16 @@ ModuleCollisions::ModuleCollisions(Application* app, bool start_enabled) : Modul
 	matrix[Collider::Type::BOX1][Collider::Type::BOX4] = false;
 	matrix[Collider::Type::BOX1][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::BOX1][Collider::Type::PLAYER2] = false;
+	matrix[Collider::Type::BOX1][Collider::Type::BALL] = false;
+
+	//BALL
+	matrix[Collider::Type::BALL][Collider::Type::BALL] = false;
+	matrix[Collider::Type::BALL][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::BALL][Collider::Type::PLAYER2] = true;
+	matrix[Collider::Type::BALL][Collider::Type::BOX1] = false;
+	matrix[Collider::Type::BALL][Collider::Type::BOX2] = false;
+	matrix[Collider::Type::BALL][Collider::Type::BOX3] = false;
+	matrix[Collider::Type::BALL][Collider::Type::BOX4] = false;
 
 }
 
@@ -140,7 +152,24 @@ void ModuleCollisions::DebugDraw()
 			case Collider::Type::BOX4: //
 			App->renderer->DrawQuad(colliders[i]->rect, 255,2, 0, alpha);
 			break;
+			case Collider::Type::BALL: //
+			App->renderer->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
+
 		
+		}
+	}
+}
+
+void ModuleCollisions::RemoveColl(Collider* PitoCorto) {
+	LOG("Freeing all colliders");
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] == PitoCorto)
+		{
+			delete colliders[i];
+			colliders[i] = nullptr;
 		}
 	}
 }

@@ -25,8 +25,9 @@ bool ModuleSceneIntro::Start()
 	Box2Coll = App->coll->AddCollider({ b2x,b2y,b2w,b2h }, Collider::Type::BOX2, this);
 	Box3Coll = App->coll->AddCollider({ b3x,b3y,b3w,b3h }, Collider::Type::BOX3, this);
 	Box4Coll = App->coll->AddCollider({ b4x,b4y,b4w,b4h }, Collider::Type::BOX4, this);
-	
 
+	P1WIN = App->textures->Load("pinball/Win1.png");
+	P2WIN = App->textures->Load("pinball/win2.png");
 
 	return ret;
 }
@@ -72,7 +73,13 @@ bool ModuleSceneIntro::Update()
 
 	SDL_Rect Box4{ b4x,b4y,b4w,b4h };
 	App->motor->CreateBoxes(Box4, 129, 30, 216);
-	
+
+	if (p1Win == true) {
+		App->renderer->Blit(P1WIN, 0, 0, NULL);
+	}
+	if (p2Win == true) {
+		App->renderer->Blit(P2WIN, 0, 0, NULL);
+	}
 	
 	return true;
 }

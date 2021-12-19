@@ -18,7 +18,7 @@ public:
 	bool Update();
 	bool CleanUp();
 	void MovementPlayer();
-	void MovementPlayer2();
+	//void OnCollision(Collider* c1, Collider* c2) override;
 public:
 	
 	p2Point<int> position;

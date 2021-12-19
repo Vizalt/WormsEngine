@@ -30,6 +30,8 @@ public:
 	// Draw all colliders (if debug mode is enabled)
 	bool PostUpdate();
 
+	void RemoveColl(Collider* PitoCorto);
+
 	// Removes all existing colliders
 	bool CleanUp();
 
