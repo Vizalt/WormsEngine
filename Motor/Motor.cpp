@@ -108,8 +108,10 @@ update_status Motor::Update()
 			if (b->data->type == PLAYER2)
 			{
 
-
-
+				b->data->fx = b->data->fy = 0.0;
+				b->data->ax = b->data->ay = 0.0;
+				
+				integrators(b->data, dt);
 			}
 		}
 		b = b->next;
