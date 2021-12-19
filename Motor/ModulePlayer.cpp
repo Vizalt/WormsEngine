@@ -47,7 +47,7 @@ bool ModulePlayer::CleanUp()
 }
 
 // Update: draw background
-update_status ModulePlayer::Update()
+bool ModulePlayer::Update()
 {
 	MovementPlayer();
 	/*SDL_Rect player = { position.x, position.y, 50, 50 };*/
@@ -129,7 +129,7 @@ update_status ModulePlayer::Update()
 		b = b->next;
 	}
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 void ModulePlayer::MovementPlayer() {

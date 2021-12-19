@@ -15,7 +15,7 @@ public:
 	virtual ~ModulePlayer();
 
 	bool Start();
-	update_status Update();
+	bool Update();
 	bool CleanUp();
 	void MovementPlayer();
 	void MovementPlayer2();
