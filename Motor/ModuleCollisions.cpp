@@ -16,6 +16,27 @@ ModuleCollisions::ModuleCollisions(Application* app, bool start_enabled) : Modul
 
 	//PLAYER
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER2] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::BOX1] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::BOX2] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::BOX3] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::BOX4] = false;
+
+	//PLAYER2
+	matrix[Collider::Type::PLAYER2][Collider::Type::PLAYER2] = false;
+	matrix[Collider::Type::PLAYER2][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::PLAYER2][Collider::Type::BOX1] = false;
+	matrix[Collider::Type::PLAYER2][Collider::Type::BOX2] = false;
+	matrix[Collider::Type::PLAYER2][Collider::Type::BOX3] = false;
+	matrix[Collider::Type::PLAYER2][Collider::Type::BOX4] = false;
+
+	//BOX1
+	matrix[Collider::Type::BOX1][Collider::Type::BOX1] = false;
+	matrix[Collider::Type::BOX1][Collider::Type::BOX2] = false;
+	matrix[Collider::Type::BOX1][Collider::Type::BOX3] = false;
+	matrix[Collider::Type::BOX1][Collider::Type::BOX4] = false;
+	matrix[Collider::Type::BOX1][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::BOX1][Collider::Type::PLAYER2] = false;
 
 }
 
@@ -70,7 +91,7 @@ bool ModuleCollisions::PreUpdate() {
 			}
 		}
 	}
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 bool ModuleCollisions::Update()
@@ -80,12 +101,12 @@ bool ModuleCollisions::Update()
 		debug = !debug;
 	}
 
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 bool ModuleCollisions::PostUpdate()
 {
-	return UPDATE_CONTINUE;
+	return true;
 }
 
 void ModuleCollisions::DebugDraw()
@@ -103,6 +124,21 @@ void ModuleCollisions::DebugDraw()
 			break;
 			case Collider::Type::PLAYER: // green
 			App->renderer->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+			case Collider::Type::PLAYER2: // green
+			App->renderer->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+			case Collider::Type::BOX1: //
+			App->renderer->DrawQuad(colliders[i]->rect, 10, 255, 0, alpha);
+			break;
+			case Collider::Type::BOX2: //
+			App->renderer->DrawQuad(colliders[i]->rect, 255, 255, 10, alpha);
+			break;
+			case Collider::Type::BOX3: //
+			App->renderer->DrawQuad(colliders[i]->rect,8, 255, 0, alpha);
+			break;
+			case Collider::Type::BOX4: //
+			App->renderer->DrawQuad(colliders[i]->rect, 255,2, 0, alpha);
 			break;
 		
 		}

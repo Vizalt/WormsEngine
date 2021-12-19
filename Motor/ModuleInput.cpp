@@ -58,7 +58,7 @@ bool ModuleInput::PreUpdate()
 	}
 
 	if (keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
-		BAKA = 1;
+		FinishGame = 1;
 
 	SDL_GetMouseState(&mouse_x, &mouse_y);
 	mouse_x /= SCREEN_SIZE;
