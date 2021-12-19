@@ -18,4 +18,13 @@ Game of Worms is a space-based worm game in which two cannons are separated on t
 - F2 - Change dt 60 to 30
 
 ### Instructions
-In each round players can only shoot once. Each player uses the same controls, which are exchanged each time one of them shoots. It is allowed to shoot with the player's own chosen speed and inclination, as well as choosing which forces are enabled or disabled and using the integrator of his choice. The first one to shoot against his opponent is the winner.
+In each round players can only shoot once. Each player uses the same controls, which are exchanged each time one of them shoots. It is allowed to shoot with the player's own chosen speed and inclination, as well as choosing which forces are enabled or disabled and using the integrator of his choice. The first one to shoot against his opponent is the winner. Good luck and may the force be with you.
+
+### Developers
+ - Xavier López - Github: [Xavier](https://github.com/Xavierlm11)
+ - Marina Albalà - Github: [Marina](https://github.com/Vizalt)
+ - David Benages - Github: [David](https://github.com/Divangus)
+
+### License
+
+This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
