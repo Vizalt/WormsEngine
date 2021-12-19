@@ -52,8 +52,8 @@ bool ModuleRender::PreUpdate()
 bool ModuleRender::Update()
 {
 
-	static char title[256];
-	sprintf_s(title, 256, "Ball Velocity: %.2f m/s | Cannon Rotation: %.2f | Integrator: %s | DeltaTime: %.5f ", App->player->velo, App->player->PlayerRotation, integratorr, App->motor->dt);
+	static char title[500];
+	sprintf_s(title, 500, "Ball Velocity: %.2f m/s | Cannon Rotation: %.2f | Integrator: %s | DeltaTime: %.5f | Drag: %s | Lift: %s | Newton Law: %s ", App->player->velo, App->player->PlayerRotation, integratorr, App->motor->dt, (App->motor->DragActive) ? "on" : "off", (App->motor->LiftActive) ? "on" : "off", (App->motor->NewtonActive) ? "on" : "off");
 	App->window->SetTitle(title);
 
 	if (App->motor->moto == 1) {
