@@ -18,7 +18,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void MovementPlayer();
-	
+	void MovementPlayer2();
 public:
 	
 	p2Point<int> position;
@@ -27,10 +27,15 @@ public:
 	SDL_Texture* SupportCannonTex;
 
 	float PlayerRotation = 0;
+	float PlayerRotation2 = 180;
+	int turn = 2;
 
 	float cx;
 	float cy;
 	
+	float cx2;
+	float cy2;
+
 	float speed = 7;
 	float rad = PIXEL_TO_METERS(10);
 	float mass = 10000;
