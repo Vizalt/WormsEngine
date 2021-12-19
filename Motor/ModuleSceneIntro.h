@@ -57,9 +57,9 @@ public:
 	~ModuleSceneIntro();
 
 	bool Start();
-	update_status PreUpdate();
-	update_status Update();
-	update_status PostUpdate();
+	bool PreUpdate();
+	bool Update();
+	bool PostUpdate();
 	bool CleanUp();
 
 public:

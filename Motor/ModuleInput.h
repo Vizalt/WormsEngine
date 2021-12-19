@@ -18,7 +18,7 @@ public:
 	~ModuleInput();
 
 	bool Init();
-	update_status PreUpdate();
+	bool PreUpdate();
 	bool CleanUp();
 
 	KEY_STATE GetKey(int id) const

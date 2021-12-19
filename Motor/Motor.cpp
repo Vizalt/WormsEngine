@@ -27,13 +27,13 @@ bool Motor::Start()
 }
 
 // 
-update_status Motor::PreUpdate()
+bool Motor::PreUpdate()
 {
 	
 	return UPDATE_CONTINUE;
 }
 
-update_status Motor::Update()
+bool Motor::Update()
 {
 	// Step #0: Reset total acceleration and total accumulated force of the ball (clear old values)
 	p2List_item<Ball*>* b = Balls.getFirst();
@@ -133,7 +133,7 @@ update_status Motor::Update()
 
 
 // 
-update_status Motor::PostUpdate()
+bool Motor::PostUpdate()
 {
 
 	adios();

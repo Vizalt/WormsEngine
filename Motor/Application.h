@@ -12,6 +12,7 @@
 #include "ModulePlayer.h"
 #include "Motor.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleCollisions.h"
 
 class Application
 {
@@ -24,6 +25,7 @@ public:
 	ModulePlayer* player;
 	ModuleSceneIntro* scene_intro;
 	Motor* motor;
+	ModuleCollisions* coll;
 
 private:
 
@@ -35,7 +37,7 @@ public:
 	~Application();
 
 	bool Init();
-	update_status Update();
+	bool Update();
 	bool CleanUp();
 
 private:

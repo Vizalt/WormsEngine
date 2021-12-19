@@ -33,7 +33,7 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-update_status ModuleSceneIntro::PreUpdate()
+bool ModuleSceneIntro::PreUpdate()
 {
 
 
@@ -41,7 +41,7 @@ update_status ModuleSceneIntro::PreUpdate()
 }
 
 // Update: draw background
-update_status ModuleSceneIntro::Update()
+bool ModuleSceneIntro::Update()
 {
 	App->renderer->DrawLine(-1000, App->motor->ground.y, 2000, App->motor->ground.y, 255, 0, 0);
 
@@ -67,7 +67,7 @@ update_status ModuleSceneIntro::Update()
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleSceneIntro::PostUpdate()
+bool ModuleSceneIntro::PostUpdate()
 {
 	//SString title(TITLE "Angle: %d ", App->player->PlayerRotation);
 	//App->window->SetTitle(title);

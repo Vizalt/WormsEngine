@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "ModulePlayer.h"
 
 Application::Application()
 {
@@ -11,6 +10,7 @@ Application::Application()
 	player = new ModulePlayer(this);
 	scene_intro = new ModuleSceneIntro(this);
 	motor = new Motor(this);
+	coll = new ModuleCollisions(this);
 
 
 	// The order of calls is very important!
@@ -24,7 +24,7 @@ Application::Application()
 	AddModule(textures);
 	AddModule(input);
 	AddModule(audio);
-
+	AddModule(coll);
 	
 	// Scenes
 	AddModule(scene_intro);
@@ -72,12 +72,12 @@ bool Application::Init()
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
-update_status Application::Update()
+bool Application::Update()
 {
-	update_status ret = UPDATE_CONTINUE;
+	bool ret = true;
 	p2List_item<Module*>* item = list_modules.getFirst();
 
-	while(item != NULL && ret == UPDATE_CONTINUE)
+	while(item != NULL && ret == true)
 	{
 		if(item->data->IsEnabled())
 			ret = item->data->PreUpdate();
@@ -86,7 +86,7 @@ update_status Application::Update()
 
 	item = list_modules.getFirst();
 
-	while(item != NULL && ret == UPDATE_CONTINUE)
+	while(item != NULL && ret == true)
 	{
 		if(item->data->IsEnabled())
   			ret = item->data->Update();
@@ -95,7 +95,7 @@ update_status Application::Update()
 
 	item = list_modules.getFirst();
 
-	while(item != NULL && ret == UPDATE_CONTINUE)
+	while(item != NULL && ret == true)
 	{
 		if(item->data->IsEnabled())
 			ret = item->data->PostUpdate();

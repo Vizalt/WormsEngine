@@ -145,9 +145,9 @@ public:
 	p2List<Box*> Boxes;
 
 	bool Start();
-	update_status PreUpdate();
-	update_status Update();
-	update_status PostUpdate();
+	bool PreUpdate();
+	bool Update();
+	bool PostUpdate();
 	bool CleanUp();
 	/*void integrator_velocity_verlet(Ball* ball, float dt);
 	void integrator_bw_euler(Ball* ball, float dt);

@@ -2,6 +2,7 @@
 
 class Application;
 class PhysBody;
+class Collider;
 
 class Module
 {
@@ -50,19 +51,19 @@ public:
 		return true;
 	}
 
-	virtual update_status PreUpdate()
+	virtual bool PreUpdate()
 	{
-		return UPDATE_CONTINUE;
+		return true;
 	}
 
-	virtual update_status Update()
+	virtual bool Update()
 	{
-		return UPDATE_CONTINUE;
+		return true;
 	}
 
-	virtual update_status PostUpdate()
+	virtual bool PostUpdate()
 	{
-		return UPDATE_CONTINUE;
+		return true;
 	}
 
 	virtual bool CleanUp() 
@@ -70,6 +71,6 @@ public:
 		return true; 
 	}
 
-	virtual void OnCollision(PhysBody* body1, PhysBody* body2)
+	virtual void OnCollision(Collider* body1, Collider* body2)
 	{ }
 };
