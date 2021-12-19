@@ -217,25 +217,25 @@ void Motor::ComputeForces(Ball* ball, float dt)
 	//LOG("VX= %d, VY= %d ", ball->vx, ball->vy);
 }
 
-Ball* Motor::NewBall(int rad, double mass, double x, double y, float v, float angle) 
+void Motor::NewBall(int rad, double mass, double x, double y, float v, float angle) 
 {
 	Ball* a = new Ball( rad,  mass,  x,  y, v, angle, BALL);
 	Balls.add(a);
-	return a;
+	//return a;
 }
 
-Ball* Motor::NewPlayer(double w, double h, double mass, double x, double y)
+void Motor::NewPlayer(double w, double h, double mass, double x, double y)
 {
 	Ball* a = new Ball(w,h, mass, x, y, PLAYER);
 	Balls.add(a);
-	return a;
+	//return a;
 }
 
-Ball* Motor::NewPlayer2(double w, double h, double mass, double x, double y)
+void Motor::NewPlayer2(double w, double h, double mass, double x, double y)
 {
 	Ball* a = new Ball(w, h, mass, x, y, PLAYER2);
 	Balls.add(a);
-	return a;
+	///return a;
 }
 
 //bool Motor::checkCollision(Ball* a, SDL_Rect b) {
@@ -255,7 +255,7 @@ void Motor::adios()
 	
 	while (b != NULL && !exit)
 	{
-		if (((abs(b->data->vx) < 0.3 && abs(b->data->vy < 0.3)) || b->data->x > 1024)&&b->data->type==BALL)
+		if (((abs(b->data->vx) < 0.3 && abs(b->data->vy < 0.3)) || b->data->x > 1024 || b->data->x < -10)&&b->data->type==BALL)
 		{
 			b->data->physics_enabled = false;
 			Ball* a = b->data;
@@ -309,8 +309,8 @@ void Motor::integrators(Ball* ball, float dt)
 	}
 }
 
-Box* Motor::CreateBoxes(SDL_Rect rect, float w, float h) {
-	Box* c = new Box(rect, w, h);
+void Motor::CreateBoxes(float x, float y, float w, float h) {
+	Box* c = new Box(x, y, w, h);
 	Boxes.add(c);
-	return c;
+	//return c;
 }

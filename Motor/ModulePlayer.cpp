@@ -56,11 +56,11 @@ void ModulePlayer::MovementPlayer() {
 		cx -= speed;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
 		velo -= 1;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
 		velo += 1;
 	}
 
@@ -71,10 +71,10 @@ void ModulePlayer::MovementPlayer() {
 	//	App->player->position.y -= 8;
 	//}
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) {
 		PlayerRotation -= 1;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) {
 		PlayerRotation += 1;
 	}
 	if (PlayerRotation > 180) {

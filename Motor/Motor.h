@@ -116,8 +116,11 @@ public:
 	float w;
 	float h;
 
-	Box(SDL_Rect Rect, float w, float h) {
-
+	Box(float x, float y, float w, float h) {
+		this->x = x;
+		this->y = y;
+		this->w = y;
+		this->h = h;
 	}
 
 	~Box()
@@ -157,13 +160,13 @@ public:
 
 	void ComputeForces(Ball* ball, float dt);
 
-	Ball* NewBall(int rad, double mass, double x, double y, float v , float angle);
+	void NewBall(int rad, double mass, double x, double y, float v , float angle);
 
-	Ball* NewPlayer(double w,double h, double mass, double x, double y);
+	void NewPlayer(double w,double h, double mass, double x, double y);
 
-	Ball* NewPlayer2(double w, double h, double mass, double x, double y);
+	void NewPlayer2(double w, double h, double mass, double x, double y);
 
-	Box* CreateBoxes(SDL_Rect rect, float w, float h);
+	void CreateBoxes(float x, float y, float w, float h);
 
 	void DragForce(Ball* a);
 
