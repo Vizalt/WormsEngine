@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "Motor.h"
 #include "math.h"
-
+#include <iostream>
+#include <stdlib.h>
 // TODO 1: Include Box 2 header and library
 
 Motor::Motor(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -254,14 +255,14 @@ void Motor::adios()
 	
 	while (b != NULL && !exit)
 	{
-		if (((b->data->vx < 0.3 && b->data->vy < 0.3) || b->data->x > 1024)&&b->data->type==BALL)
+		if (((abs(b->data->vx) < 0.3 && abs(b->data->vy < 0.3)) || b->data->x > 1024)&&b->data->type==BALL)
 		{
 			b->data->physics_enabled = false;
 			Ball* a = b->data;
 			Balls.del(Balls.findNode(a));
 			delete a;
 			exit = true;
-
+			
 			
 		}
 		else
