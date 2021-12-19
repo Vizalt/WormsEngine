@@ -110,7 +110,7 @@ bool Motor::Update()
 				SDL_Rect uwu{ b->data->x - 5,b->data->y - 4,b->data->w, b->data->h };
 
 				App->renderer->DrawQuad(uwu, 255, 20, 20, 255, false);
-				App->renderer->Blit(App->player->CannonTex, xp - 15, yp - 10, NULL, 1.0f, App->player->PlayerRotation2);
+				App->renderer->Blit(App->player->CannonTex2, xp - 15, yp - 10, NULL, 1.0f, App->player->PlayerRotation2);
 				App->renderer->Blit(App->player->SupportCannonTex, xp - 6, yp - 5, NULL, 1.0f, 180);
 
 				if (b->data->physics_enabled == true)

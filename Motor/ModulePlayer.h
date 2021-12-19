@@ -24,6 +24,7 @@ public:
 	p2Point<int> position;
 	SDL_Texture* PlayerTex;
 	SDL_Texture* CannonTex;
+	SDL_Texture* CannonTex2;
 	SDL_Texture* SupportCannonTex;
 
 	float PlayerRotation = 0;

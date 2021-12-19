@@ -15,8 +15,9 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player");
 	
-	PlayerTex = App->textures->Load("pinball/player.png");
+	
 	CannonTex = App->textures->Load("pinball/CannonTex.png");
+	CannonTex2 = App->textures->Load("pinball/Cannon2Tex.png");
 	SupportCannonTex= App->textures->Load("pinball/SupportCannonTex.png");
 	
 	position.x = 40;
